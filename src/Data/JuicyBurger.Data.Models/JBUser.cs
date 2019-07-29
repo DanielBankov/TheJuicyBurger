@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace JuicyBurger.Data.Models
 {
-    public class User : IdentityUser
+    public class JBUser : IdentityUser
     {
-        public User()
+        public JBUser()
         {
             this.Reviews = new HashSet<Review>();
         }

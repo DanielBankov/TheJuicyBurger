@@ -2,7 +2,7 @@
 
 namespace JuicyBurger.Data.Models
 {
-    public class RestaurantContracts
+    public class RestaurantContract
     {
         public string Id { get; set; }
 
@@ -18,6 +18,6 @@ namespace JuicyBurger.Data.Models
 
         public string ContractorId { get; set; }
 
-        public User Contractor { get; set; }
+        public JBUser Contractor { get; set; }
     }
 }

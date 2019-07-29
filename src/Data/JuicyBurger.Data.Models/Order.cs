@@ -20,9 +20,9 @@ namespace JuicyBurger.Data.Models
 
         public OrderStatus OrderStatus { get; set; }
 
-        public User Issuer { get; set; }
+        public JBUser Issuer { get; set; }
 
-        public User Dasher { get; set; }
+        public JBUser Dasher { get; set; }
 
         public ICollection<Product> Product { get; set; }
     }

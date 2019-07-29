@@ -6,7 +6,7 @@ namespace JuicyBurger.Data.Models
     {
         public Review()
         {
-            this.Users = new HashSet<User>();
+            this.Users = new HashSet<JBUser>();
         }
 
         public string Id { get; set; }
@@ -21,6 +21,6 @@ namespace JuicyBurger.Data.Models
 
         public Product Product { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<JBUser> Users { get; set; }
     }
 }

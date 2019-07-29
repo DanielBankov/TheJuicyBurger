@@ -2,7 +2,7 @@
 
 namespace JuicyBurger.Data.Models
 {
-    public class Dasher : User
+    public class Dasher : JBUser
     {
         public string Name { get; set; }
 

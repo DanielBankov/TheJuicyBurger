@@ -2,7 +2,7 @@
 
 namespace JuicyBurger.Data.Models
 {
-    public class UserRole : IdentityRole
+    public class JBUserRole : IdentityRole
     {
     }
 }

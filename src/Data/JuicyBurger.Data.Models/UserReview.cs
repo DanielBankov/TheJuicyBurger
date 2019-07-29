@@ -8,7 +8,7 @@ namespace JuicyBurger.Data.Models
     {
         public string UserId { get; set; }
 
-        public User User { get; set; }
+        public JBUser User { get; set; }
 
         public string ReviewId { get; set; }
 
