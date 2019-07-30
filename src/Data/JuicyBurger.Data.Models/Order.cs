@@ -7,7 +7,7 @@ namespace JuicyBurger.Data.Models
     {
         public Order()
         {
-            this.Product = new HashSet<Product>();
+            this.OrderProducts = new HashSet<OrderProduct>();
         }
 
         public string Id { get; set; }
@@ -24,6 +24,6 @@ namespace JuicyBurger.Data.Models
 
         public JBUser Dasher { get; set; }
 
-        public ICollection<Product> Product { get; set; }
+        public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace JuicyBurger.Data.Models
     {
         public Ingredient()
         {
-            this.Products = new HashSet<Product>();
+            this.ProductIngredients = new HashSet<ProductIngredient>();
         }
 
         public string Id { get; set; }
@@ -23,6 +23,6 @@ namespace JuicyBurger.Data.Models
 
         public double Fat { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductIngredient> ProductIngredients { get; set; }
     }
 }

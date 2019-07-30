@@ -12,6 +12,8 @@ namespace JuicyBurger.Data.Models
 
         public string FullName { get; set; }
 
+        //public JBUserRole UserRole { get; set; }
+
         public ICollection<Review> Reviews { get; set; }
     }
 }

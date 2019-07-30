@@ -7,9 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{49B4DD45-173
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6C875226-0D0B-4CD0-A010-64DAF6068D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Data.Models", "Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj", "{FD0954B6-AF97-4051-9388-94B173884FC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Data.Models", "Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj", "{FD0954B6-AF97-4051-9388-94B173884FC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Data", "Data\JuicyBurger.Data\JuicyBurger.Data.csproj", "{1DF72B95-234B-4215-8A07-4E19A1B173D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Data", "Data\JuicyBurger.Data\JuicyBurger.Data.csproj", "{1DF72B95-234B-4215-8A07-4E19A1B173D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Web", "Web\JuicyBurger.Web\JuicyBurger.Web.csproj", "{84A76137-6D9D-439B-952A-AE05CC407231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{B391BAB2-1B1C-4E04-8EB6-121BCA41045F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{1DF72B95-234B-4215-8A07-4E19A1B173D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DF72B95-234B-4215-8A07-4E19A1B173D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DF72B95-234B-4215-8A07-4E19A1B173D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A76137-6D9D-439B-952A-AE05CC407231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A76137-6D9D-439B-952A-AE05CC407231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A76137-6D9D-439B-952A-AE05CC407231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A76137-6D9D-439B-952A-AE05CC407231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B391BAB2-1B1C-4E04-8EB6-121BCA41045F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B391BAB2-1B1C-4E04-8EB6-121BCA41045F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B391BAB2-1B1C-4E04-8EB6-121BCA41045F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B391BAB2-1B1C-4E04-8EB6-121BCA41045F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FD0954B6-AF97-4051-9388-94B173884FC5} = {6C875226-0D0B-4CD0-A010-64DAF6068D0A}
 		{1DF72B95-234B-4215-8A07-4E19A1B173D2} = {6C875226-0D0B-4CD0-A010-64DAF6068D0A}
+		{84A76137-6D9D-439B-952A-AE05CC407231} = {49B4DD45-1734-413C-8796-4D536450EF32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78D9F84F-9151-4677-A52C-3E00DA3F72C1}

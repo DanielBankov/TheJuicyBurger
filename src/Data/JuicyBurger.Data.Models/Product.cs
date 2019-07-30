@@ -6,9 +6,9 @@ namespace JuicyBurger.Data.Models
     {
         public Product()
         {
-            this.Ingredients = new HashSet<Ingredient>();
+            this.ProductIngredients = new HashSet<ProductIngredient>();
             this.Reviews = new HashSet<Review>();
-            this.Orders = new HashSet<Order>();
+            this.OrderProducts = new HashSet<OrderProduct>();
         }
 
         public string Id { get; set; }
@@ -35,10 +35,10 @@ namespace JuicyBurger.Data.Models
 
         public ProductType ProductType { get; set; }
 
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<ProductIngredient> ProductIngredients { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

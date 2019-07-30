@@ -6,9 +6,8 @@ namespace JuicyBurger.Data
 {
     public class JuicyBurgerDbContext : IdentityDbContext<JBUser, JBUserRole, string>
     {
-        public DbSet<JBUserRole> JBUserRoles { get; set; }
+        //public DbSet<JBUserRole> JBUserRoles { get; set; }
         public DbSet<Dasher> Dashers { get; set; }
-        public DbSet<UserReview> UserReviews { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -35,7 +34,10 @@ namespace JuicyBurger.Data
 
             builder.Entity<ProductIngredient>().HasKey(key => new { key.ProductId, key.IngredientId });
 
-            builder.Entity<UserReview>().HasKey(key => new { key.UserId, key.ReviewId });
+//            builder.Entity<ProductIngredient>()
+//.HasOne(e => e.Ingredient)
+//.WithMany(e => e.Products)
+                
 
             base.OnModelCreating(builder);
         }
