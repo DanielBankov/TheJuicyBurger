@@ -1,10 +1,11 @@
 ﻿using JuicyBurger.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JuicyBurger.Data
 {
-    public class JuicyBurgerDbContext : IdentityDbContext<JBUser, JBUserRole, string>
+    public class JuicyBurgerDbContext : IdentityDbContext<JBUser, IdentityRole, string>
     {
         //public DbSet<JBUserRole> JBUserRoles { get; set; }
         public DbSet<Dasher> Dashers { get; set; }

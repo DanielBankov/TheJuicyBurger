@@ -6,6 +6,9 @@
 body {
   padding-top: 56px;
 }
+.carouselWidth {
+    width: 100%
+}
 
 .carousel-item {
   height: 65vh;
@@ -19,4 +22,11 @@ body {
 
 .portfolio-item {
   margin-bottom: 30px;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: -200px;
 }

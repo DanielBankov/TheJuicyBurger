@@ -6229,11 +6229,12 @@ a.close.disabled {
   overflow: hidden;
 }
 
-.carousel-inner::after {
-  display: block;
-  clear: both;
-  content: "";
-}
+    .carousel-inner::after {
+        display: block;
+        clear: both;
+        width: 100%;
+        content: "";
+    }
 
 .carousel-item {
   position: relative;
