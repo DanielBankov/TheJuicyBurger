@@ -45,6 +45,13 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+.welcome {
+    color: #5a7c8a;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 50px 0;
+}
 footer {
   position: absolute;
   bottom: 0;
