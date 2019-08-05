@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Drinks menu";
+}
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="main-content-icons-text text-center mt-3 mb-0 bg-light py-3">
+        OUR DRINKS
+    </h1>
+
+    <div class="row">
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+            <!-- Search Widget -->
+            <div class="card mb-4">
+                <h5 class="card-header main-content-icons-text bg-dark text-white">SEARCH</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary main-content-icons-text bg-dark" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="card my-4">
+                <h5 class="card-header main-content-icons-text bg-dark text-white">CATEGORIES</h5>
+                <div class="card-body ">
+                    <div>
+                        <ul class="list-group">
+                            <li class="mb-1">
+                                <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/BurgersMenu">Burgers</a>
+                            </li>
+                            <li class="mb-1">
+                                <a class="list-group-item main-content-icons-text bg-dark text-white" href="#">Drinks</a>
+                            </li>
+                            <li class="mb-1">
+                                <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/FriesMenu">Fries</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header bg-dark text-white">Side Widget</h5>
+                <div class="card-body">
+                    You can put anything you want inside of these side widgets.They are easy to use, and feature the new Bootstrap 4 card containers!
+                </div>
+            </div>
+
+        </div>
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <img class="card-img-top" src="~/images/orange-juice.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title main-content-icons-text">ORANGE Juice</h2>
+                    <h3 class="card-title main-content-icons-text">&#36; 2.99</h3>
+                    <p class="card-text card-title main-content-icons-text">Orange juice is obtained by squeezing, pressing or otherwise crushing the interior of an orange. Orange juice is a nutrition powerhouse with naturally vitamins and minerals and many antioxidants.</p>
+                    <a href="#" class="btn main-content-icons-text btn-dark">ORDER &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    ★ ★ ★ ★ ☆
+                </div>
+            </div>
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <img class="card-img-top" src="~/images/tea.png" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title main-content-icons-text">TEA</h2>
+                    <h3 class="card-title main-content-icons-text">&#36; 1.49</h3>
+                    <p class="card-text main-content-icons-text">Chinese tea is a beverage made from the leaves of tea plants (Camellia sinensis) and boiled water. Tea leaves are processed using traditional Chinese methods.</p>
+                    <a href="#" class="btn main-content-icons-text btn-dark">ORDER &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    ★ ★ ★ ★ ☆
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-5">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

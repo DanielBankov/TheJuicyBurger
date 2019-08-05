@@ -1,0 +1,73 @@
+﻿<div class="container">
+
+
+
+    <!-- Content Row -->
+    <div class="row mt-5">
+        <!-- Map Column -->
+        <div class="col-lg-8 mb-4">
+            <!-- Embedded Google Map -->
+            <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+        </div>
+        <!-- Contact Details Column -->
+        <div class="col-lg-4 mb-4">
+            <h3 class="main-content-icons-text">Contact Details</h3>
+            <p class="main-content-icons-text">
+                3481 Melrose Place
+                <br>Beverly Hills, CA 90210
+                <br>
+            </p>
+            <p class="main-content-icons-text">
+                <abbr title="Phone">Phone</abbr>&#58; (&#43;359) 832-456-7890
+            </p>
+            <p class="main-content-icons-text">
+                <abbr title="Email">Email</abbr>&#58; name&#64;example.com
+            </p>
+            <p class="main-content-icons-text">
+                <abbr title="Hours">Hours</abbr>&#58; Monday - Friday&#58; 9&#58;00 AM to 5&#58;00 PM
+            </p>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <h3  class="main-content-icons-text" >Send us a Message</h3>
+            <form name="sentMessage" id="contactForm" novalidate>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label class="main-content-icons-text">Full Name:</label>
+                        <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label class="main-content-icons-text">Phone Number:</label>
+                        <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label class="main-content-icons-text">Email Address:</label>
+                        <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label class="main-content-icons-text">Message:</label>
+                        <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                    </div>
+                </div>
+                <div id="success"></div>
+                <!-- For success/fail messages -->
+                <button type="submit" class="btn main-content-icons-text btn-dark mb-5" id="sendMessageButton">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->

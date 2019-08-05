@@ -17,61 +17,67 @@
     </environment>
     <link rel="stylesheet" href="~/css/reset-css.css" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/footerDown.css" />
+    <link rel="stylesheet" href="~/css/welcome-index.css" />
+    <link rel="stylesheet" href="~/css/carousel.css" />
+    <link rel="stylesheet" href="~/css/footer-down.css" />
 </head>
 <body>
-    <header>
-        <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a href="/">
-                    <img alt="Brand" src="~/images/burgerLogo.png" height="50" />
-                </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.html">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Identity/Account/Login">Login</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                AdminBar
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+    <div id="page-container">
+        <header>
+            <!-- Navigation -->
+            <div id="content-wrap">
+                <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                        <a href="/">
+                            <img alt="Brand" src="~/images/burgerLogo.png" height="50" />
+                        </a>
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="about.html">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="services.html">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Home/Contact">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Identity/Account/Login">Login</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Menu
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                        <a class="dropdown-item" href="/Products/BurgersMenu">Burgers</a>
+                                        <a class="dropdown-item" href="/Products/BurgersIndex">2 Column Portfolio</a>
+                                        <a class="dropdown-item" href="/Products/BurgersIndex">3 Column Portfolio</a>
+                                        <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
+                                        <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             </div>
-        </nav>
-    </header>
-    <div>
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <footer class="footer">
-        <div class="container-fluid py-3 bg-dark">
-            <p class="m-0 text-center text-white">Copyright &copy; The Juicy Burger 2019</p>
+        </header>
+        <div>
+            <partial name="_CookieConsentPartial" />
+            <main role="main">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+        <footer id="footer" >
+            <div class="container-fluid py-2 bg-dark">
+                <p class="m-0 text-center text-white">Copyright &copy; The Juicy Burger 2019</p>
+            </div>
+        </footer>
+    </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

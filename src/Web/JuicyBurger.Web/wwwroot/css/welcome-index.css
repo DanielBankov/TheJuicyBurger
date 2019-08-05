@@ -19,12 +19,3 @@
 .main-content-icons-text {
     font-family: Impact, Charcoal, sans-serif;
 }
-
-.ffooter {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    text-align: center;
-}

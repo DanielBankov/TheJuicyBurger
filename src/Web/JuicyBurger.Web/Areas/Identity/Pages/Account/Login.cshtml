@@ -4,49 +4,51 @@
 @{
     ViewData["Title"] = "Login";
 }
-<h1 class="bg-dark text-white font-weight-bold text-center mt-5 p-3 w-25 mx-auto rounded">Login</h1>
-<form method="post" asp-action="/Identity/Account/Login" class="form border-primary-4 rounded p-3 w-25 mx-auto mt-3">
-    <div class="form-group mx-auto">
-        <div class="d-flex justify-content-center">
-            <label asp-for="Input.Username" class="text-dark h5">Username</label>
-        </div>
-        <input type="text"
-               class="form-control text-dark"
-               id="username"
-               placeholder="Username..."
-               asp-for="Input.Username">
-        <span asp-validation-for="Input.Username" class="text-dark"></span>
-    </div>
-    <div class="form-group mx-auto">
-        <div class="d-flex justify-content-center">
-            <label asp-for="Input.Password" class="text-dark h5">Password</label>
-        </div>
-        <input type="password"
-               class="form-control text-dark"
-               id="password"
-               placeholder="Password..."
-               asp-for="Input.Password">
-        <span asp-validation-for="Input.Password" class="text-dark"></span>
-    </div>
-    <div class="form-group">
-        <div class="checkbox d-flex justify-content-center">
-            <label asp-for="Input.RememberMe">
-                <input asp-for="Input.RememberMe" />
-                @Html.DisplayNameFor(m => m.Input.RememberMe)
-            </label>
-        </div>
-    </div>
-    <hr class="bg-dark mt-3">
-    <div class="d-flex justify-content-center mt-3">
-        <button type="submit" class="btn btn-dark font-weight-bold">Login</button>
-    </div>
-    <div class="form-group d-flex justify-content-center mt-3">
-        <p>
-            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-dark">Register as a new user</a>
-        </p>
-    </div>
-</form>
 
+<header>
+    <h1 class="bg-dark text-white font-weight-bold text-center mt-5 p-3 w-25 mx-auto rounded">Login</h1>
+    <form method="post" asp-action="/Identity/Account/Login" class="form border-primary-4 rounded p-3 w-25 mx-auto mt-3">
+        <div class="form-group mx-auto">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Input.Username" class="text-dark h5">Username</label>
+            </div>
+            <input type="text"
+                   class="form-control text-dark"
+                   id="username"
+                   placeholder="Username..."
+                   asp-for="Input.Username">
+            <span asp-validation-for="Input.Username" class="text-dark"></span>
+        </div>
+        <div class="form-group mx-auto">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Input.Password" class="text-dark h5">Password</label>
+            </div>
+            <input type="password"
+                   class="form-control text-dark"
+                   id="password"
+                   placeholder="Password..."
+                   asp-for="Input.Password">
+            <span asp-validation-for="Input.Password" class="text-dark"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox d-flex justify-content-center">
+                <label asp-for="Input.RememberMe">
+                    <input asp-for="Input.RememberMe" />
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+        </div>
+        <hr class="bg-dark mt-3">
+        <div class="d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-dark font-weight-bold">Login</button>
+        </div>
+        <div class="form-group d-flex justify-content-center mt-3">
+            <p>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-dark">Register as a new user</a>
+            </p>
+        </div>
+    </form>
+</header>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
