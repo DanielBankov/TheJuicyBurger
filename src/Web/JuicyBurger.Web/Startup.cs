@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Data;
+using JuicyBurger.Web.Extensions;
 
 namespace JuicyBurger.Web
 {
@@ -89,6 +90,8 @@ namespace JuicyBurger.Web
                 using (var context = serviceScope.ServiceProvider.GetRequiredService<JuicyBurgerDbContext>())
                 {
                     context.Database.EnsureCreated();
+
+                    DatabaseSeed.CreateRoles(context);
                 }
             }
 
@@ -100,6 +103,10 @@ namespace JuicyBurger.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

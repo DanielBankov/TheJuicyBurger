@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using JuicyBurger.Data.Models;
@@ -82,6 +83,16 @@ namespace JuicyBurger.Web.Areas.Identity.Pages.Account
                 var user = new JBUser { UserName = Input.Username, Email = Input.Email, FullName = Input.FirstName + " " + Input.LastName, PhoneNumber = Input.PhoneNumber };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                //Create admin
+                if (_userManager.Users.Count() == 1)
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
 
                 if (result.Succeeded)
                 {

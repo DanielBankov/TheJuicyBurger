@@ -1,0 +1,29 @@
+﻿@model IEnumerable<JuicyBurger.Web.ViewModels.ProducstAllViewModel>
+
+@{
+    ViewData["Title"] = "All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container shadow mt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        @foreach (var product in Model)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>mtt</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>

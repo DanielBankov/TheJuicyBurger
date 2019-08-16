@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using JuicyBurger.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using JuicyBurger.Web.Models;
+using System.Diagnostics;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -16,6 +12,11 @@ namespace JuicyBurger.Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }
