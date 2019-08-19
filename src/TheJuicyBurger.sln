@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Data", "Data\Ju
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Web", "Web\JuicyBurger.Web\JuicyBurger.Web.csproj", "{84A76137-6D9D-439B-952A-AE05CC407231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Web.InputModels", "Web\JuicyBurger.Web.InputModels\JuicyBurger.Web.InputModels.csproj", "{BD9A938C-7CB2-45B2-9B16-CE6373CE6F65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Web.InputModels", "Web\JuicyBurger.Web.InputModels\JuicyBurger.Web.InputModels.csproj", "{BD9A938C-7CB2-45B2-9B16-CE6373CE6F65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Web.ViewModels", "Web\JuicyBurger.Web.ViewModels\JuicyBurger.Web.ViewModels.csproj", "{A74B9568-6D40-4038-A5D4-7C32D22B5F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Web.ViewModels", "Web\JuicyBurger.Web.ViewModels\JuicyBurger.Web.ViewModels.csproj", "{A74B9568-6D40-4038-A5D4-7C32D22B5F75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3043514C-2239-4132-AE3A-D15F8681B33E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Services", "Services\JuicyBurger.Services\JuicyBurger.Services.csproj", "{A9A83BEF-8638-416B-B914-10828191B8CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JuicyBurger.Services", "Services\JuicyBurger.Services\JuicyBurger.Services.csproj", "{A9A83BEF-8638-416B-B914-10828191B8CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicyBurger.Services.Models", "Services\JuicyBurger.Services.Models\JuicyBurger.Services.Models.csproj", "{07A88A43-2C21-4B22-A9D3-F14314BDA6E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{A9A83BEF-8638-416B-B914-10828191B8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9A83BEF-8638-416B-B914-10828191B8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9A83BEF-8638-416B-B914-10828191B8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A88A43-2C21-4B22-A9D3-F14314BDA6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A88A43-2C21-4B22-A9D3-F14314BDA6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A88A43-2C21-4B22-A9D3-F14314BDA6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A88A43-2C21-4B22-A9D3-F14314BDA6E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{BD9A938C-7CB2-45B2-9B16-CE6373CE6F65} = {49B4DD45-1734-413C-8796-4D536450EF32}
 		{A74B9568-6D40-4038-A5D4-7C32D22B5F75} = {49B4DD45-1734-413C-8796-4D536450EF32}
 		{A9A83BEF-8638-416B-B914-10828191B8CD} = {3043514C-2239-4132-AE3A-D15F8681B33E}
+		{07A88A43-2C21-4B22-A9D3-F14314BDA6E8} = {3043514C-2239-4132-AE3A-D15F8681B33E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78D9F84F-9151-4677-A52C-3E00DA3F72C1}

@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Data;
 using JuicyBurger.Web.Extensions;
+using JuicyBurger.Services;
 
 namespace JuicyBurger.Web
 {
@@ -45,6 +46,8 @@ namespace JuicyBurger.Web
             services.AddIdentity<JBUser, IdentityRole>()
                 .AddEntityFrameworkStores<JuicyBurgerDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IProductsServices, ProductsServices>();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JuicyBurger.Web.ViewModels
+﻿namespace JuicyBurger.Web.ViewModels.Products
 {
     public class ProducstAllViewModel
     {

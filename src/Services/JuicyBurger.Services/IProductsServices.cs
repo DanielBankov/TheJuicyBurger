@@ -1,11 +1,17 @@
-﻿using System.Linq;
+﻿using JuicyBurger.Services.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JuicyBurger.Services
 {
     public interface IProductsServices
     {
-        bool Create();
-
         IQueryable All();
+
+        bool Create(ProductsCreateInputServiceModel inputModel);
+
+        bool CreateType(ProductTypeServiceModel inputModel);
+
+        IQueryable<ProductTypeServiceModel> GetAllTypes();
     }
 }

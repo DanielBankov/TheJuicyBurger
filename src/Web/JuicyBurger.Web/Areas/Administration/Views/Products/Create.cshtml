@@ -1,0 +1,79 @@
+﻿@using JuicyBurger.Web.ViewModels.Products
+@model JuicyBurger.Web.InputModels.Products.ProductsCreateInputModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container shadow mt-5">
+    <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Create Product</h2>
+    <hr />
+    <form method="post"  asp-action="/Administration/Products/Create">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div id="name-and-price-holder" class="d-flex justify-content-between">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Name" class="text-dark font-weight-bold">Name</label>
+                </div>
+                <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Name" class="text-dark font-weight-bold">Price</label>
+                </div>
+                <input asp-for="Price" type="text" class="form-control" id="price" placeholder="Price">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div id="weight-and-picture-holder" class="d-flex justify-content-between">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Weight" class="text-dark font-weight-bold">Weight</label>
+                </div>
+                <input asp-for="Weight" type="text" class="form-control" id="weight" placeholder="Weight">
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+             <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Image" class="text-dark font-weight-bold">Image</label>
+                </div>
+                <input asp-for="Image" type="text" class="form-control" id="image" placeholder="Image">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group mx-auto w-25">
+            <div class="d-flex justify-content-center">
+                <label asp-for="ProductType" class="text-dark h5">Product Type</label>
+            </div>
+            <select class="form-control text-dark" id="type" asp-for="ProductType">
+                <option selected disabled>Select Product Type</option>
+                @foreach (var type in (IEnumerable<ProductTypeViewModel>)this.ViewData["productTypes"])
+                {
+                    <option value="@type.Name">@type.Name</option>
+                }
+            </select>
+            <span asp-validation-for="ProductType" class="text-danger"></span>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-dark font-weight-bold mb-3">Create Product</button>
+        </div>
+    </form>
+</div>
+
+
+@*<script>
+        window.onload = () => {
+            $('#manufacturedOn').datetimepicker({
+                format: 'd.m.Y H:i',
+                lang: 'en'
+            });
+        };
+    </script>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
