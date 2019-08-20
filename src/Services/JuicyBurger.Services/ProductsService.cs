@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace JuicyBurger.Services
+namespace JuicyBurger.Service
 {
-    public class ProductsServices : IProductsServices
+    public class ProductsService : IProductsService
     {
         private readonly JuicyBurgerDbContext context;
 
-        public ProductsServices(JuicyBurgerDbContext context)
+        public ProductsService(JuicyBurgerDbContext context)
         {
             this.context = context;
         }
@@ -25,12 +25,15 @@ namespace JuicyBurger.Services
 
         public bool Create(ProductsCreateInputServiceModel inputModel)
         {
+            ProductType productTypeDb = context.ProductTypes.FirstOrDefault(type => type.Name == inputModel.ProductType.Name); //
+
             Product product = new Product
             {
                 Name = inputModel.Name,
                 Price = inputModel.Price,
                 Weight = inputModel.Weight,
-
+                Image = inputModel.Image,
+                ProductType = productTypeDb
             };
 
             context.Products.Add(product);

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JuicyBurger.Services
+namespace JuicyBurger.Service
 {
-    public interface IProductsServices
+    public interface IProductsService
     {
         IQueryable All();
 

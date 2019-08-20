@@ -15,7 +15,10 @@ using Microsoft.Extensions.DependencyInjection;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Data;
 using JuicyBurger.Web.Extensions;
-using JuicyBurger.Services;
+using JuicyBurger.Service;
+using System.Globalization;
+using CloudinaryDotNet;
+using JuicyBurger.Services.Cloud;
 
 namespace JuicyBurger.Web
 {
@@ -38,7 +41,6 @@ namespace JuicyBurger.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddDbContext<JuicyBurgerDbContext>(options =>
                 options
                 .UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
@@ -47,7 +49,8 @@ namespace JuicyBurger.Web
                 .AddEntityFrameworkStores<JuicyBurgerDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IProductsServices, ProductsServices>();
+            services.AddTransient<IProductsService, ProductsService>();
+            services.AddSingleton<ICloudinaryService, CloudinaryService>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -70,6 +73,14 @@ namespace JuicyBurger.Web
                 options.User.RequireUniqueEmail = true;
             });
 
+            Account accountCredentials = new Account(
+                this.Configuration["Cloudinary:CloudName"], 
+                this.Configuration["Cloudinary:ApiKey"], 
+                this.Configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinaryUtility = new Cloudinary(accountCredentials);
+            services.AddSingleton(cloudinaryUtility);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -87,6 +98,10 @@ namespace JuicyBurger.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //The code below, fix floating point issue for double/decimal form field.
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

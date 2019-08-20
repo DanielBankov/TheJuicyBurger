@@ -10,7 +10,7 @@
 <div class="container shadow mt-5">
     <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Create Product</h2>
     <hr />
-    <form method="post"  asp-action="/Administration/Products/Create">
+    <form method="post" asp-action="/Administration/Products/Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly"></div>
         <div id="name-and-price-holder" class="d-flex justify-content-between">
             <div class="form-group mx-auto w-45">
@@ -36,13 +36,13 @@
                 <input asp-for="Weight" type="text" class="form-control" id="weight" placeholder="Weight">
                 <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
-             <div class="form-group mx-auto w-45">
+            @*<div class="form-group custom-file mx-auto w-auto">
                 <div class="d-flex justify-content-center">
                     <label asp-for="Image" class="text-dark font-weight-bold">Image</label>
                 </div>
                 <input asp-for="Image" type="text" class="form-control" id="image" placeholder="Image">
                 <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
+            </div>*@
         </div>
         <hr />
         <div class="form-group mx-auto w-25">
@@ -58,6 +58,20 @@
             </select>
             <span asp-validation-for="ProductType" class="text-danger"></span>
         </div>
+        <div class="form-group mx-auto w-25">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Image" class="text-dark font-weight-bold">Upload Image</label>
+            </div>
+
+            <div class="input-group">
+                <span class="btn btn-file">
+                    <input asp-for="Image" type="file" id="image">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </span>
+            </div>
+            <img id='img-upload' />
+        </div>
+
         <div class="d-flex justify-content-center">
             <button class="btn btn-dark font-weight-bold mb-3">Create Product</button>
         </div>

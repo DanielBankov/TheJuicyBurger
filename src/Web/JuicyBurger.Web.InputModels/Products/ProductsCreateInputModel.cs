@@ -1,4 +1,5 @@
 ﻿using JuicyBurger.Web.ViewModels.Products;
+using Microsoft.AspNetCore.Http;
 
 namespace JuicyBurger.Web.InputModels.Products
 {
@@ -13,9 +14,7 @@ namespace JuicyBurger.Web.InputModels.Products
 
         public decimal Price { get; set; }
 
-
-
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
 
         public int ProductTypeId { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using JuicyBurger.Services;
+﻿using JuicyBurger.Service;
+using JuicyBurger.Services.Cloud;
 using JuicyBurger.Services.Models;
 using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Products;
@@ -9,11 +10,14 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 {
     public class ProductsController : AdminController
     {
-        private readonly IProductsServices productsServices;
+        private readonly IProductsService productsServices;
 
-        public ProductsController(IProductsServices productsServices)
+        private readonly ICloudinaryService cloudinaryServices;
+
+        public ProductsController(IProductsService productsServices, ICloudinaryService cloudinaryServices)
         {
             this.productsServices = productsServices;
+            this.cloudinaryServices = cloudinaryServices;
         }
 
         public IActionResult All()
@@ -36,15 +40,17 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult Create(ProductsCreateInputModel serviceModel)
         {
+            string imageUrl = this.cloudinaryServices.UploadeImage(serviceModel.Image, serviceModel.Name);
+
             ProductsCreateInputServiceModel product = new ProductsCreateInputServiceModel
             {
                 Name = serviceModel.Name,
                 Price = serviceModel.Price,
                 Weight = serviceModel.Weight,
+                Image = imageUrl,
                 ProductType = new ProductTypeServiceModel
                 {
-                    Name = serviceModel.ProductType,
-                    Id = serviceModel.ProductTypeId
+                    Name = serviceModel.ProductType
                 }
             };
 
