@@ -18,9 +18,21 @@ namespace JuicyBurger.Service
             this.context = context;
         }
 
-        public IQueryable All()
+        public IQueryable<ProductAllServiceModel> All(int id)
         {
-            return this.context.Products.Select(x => x); // make service entity return type
+            return this.context.Products
+                .Where(type => type.ProductType.Id == id)
+                .Select(product => new ProductAllServiceModel
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    ProductType = product.ProductType.Name,
+                    ProductTypeId = product.ProductTypeId,
+                    Image = product.Image,
+                    Quantity = product.Quantity,
+                    Weight = product.Weight
+                });
         }
 
         public bool Create(ProductsCreateInputServiceModel inputModel)
@@ -33,6 +45,8 @@ namespace JuicyBurger.Service
                 Price = inputModel.Price,
                 Weight = inputModel.Weight,
                 Image = inputModel.Image,
+                Quantity = inputModel.Quantity,
+                Description = inputModel.Description,
                 ProductType = productTypeDb
             };
 
@@ -65,6 +79,23 @@ namespace JuicyBurger.Service
                 });
 
             return result;
+        }
+
+        public IQueryable<ProductAllServiceModel> Search(string searchString)
+        {
+            return context.Products
+                .Where(product => product.Name.Contains(searchString))
+                .Select(product => new ProductAllServiceModel
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    ProductType = product.ProductType.Name,
+                    ProductTypeId = product.ProductTypeId,
+                    Image = product.Image,
+                    Quantity = product.Quantity,
+                    Weight = product.Weight
+                });
         }
     }
 }

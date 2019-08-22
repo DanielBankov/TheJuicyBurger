@@ -1,0 +1,107 @@
+﻿@using JuicyBurger.Web.ViewModels.Products
+@model List<ProductAllViewModel>
+
+@{
+    ViewData["Title"] = "All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="main-content-icons-text text-center mt-3 mb-0 bg-light py-3">
+        OUR BURGERS
+    </h1>
+
+    <div class="row">
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+            <!-- Search Widget -->
+            <div class="card mb-4">
+                <h5 class="card-header main-content-icons-text bg-dark text-white">SEARCH</h5>
+                <div id="search-bar" class="card-body">
+                    <form method="post" asp-controller="Products" asp-action="Search">
+                        <div class="input-group">
+                            <input id="search-bar" type="text" class="form-control" name="searchString" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary main-content-icons-text bg-dark" type="submit">Go!</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="card my-4">
+                <h5 class="card-header main-content-icons-text bg-dark text-white">MENU</h5>
+                <div class="card-body ">
+                    <div>
+                        <ul class="list-group">
+                            @foreach (var types in (IEnumerable<ProductTypeViewModel>)this.ViewData["productTypesMenu"])
+                            {
+                                <li class="mb-1">
+                                    <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/All/@types.Id">@types.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header bg-dark text-white">Side Widget</h5>
+                <div class="card-body">
+                    You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Entries Column -->
+        <div class="product-card col-md-8">
+            <!-- Blog Post -->
+            @foreach (var products in Model)
+            {
+                <div class="product-card mb-4">
+                    <img class="card-img-top" src="@products.Image" alt="Card image cap">
+                    <div class="card-body">
+                        <h2 class="product-name main-content-icons-text">@products.Name</h2>
+                        <h3 class="card-title main-content-icons-text">&#36; @products.Price.ToString("F2")</h3>
+                        <p class="card-text card-title main-content-icons-text">@products.Description</p>
+                        <a href="#" class="btn main-content-icons-text btn-dark">ORDER &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        ★ ★ ★ ★ ☆
+                    </div>
+                </div>
+            }
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-5">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $('#search-bar').on("change paste keyup", function () {
+            $('.product-card').show();
+
+            let searchValue = $('#search-bar').val();
+
+            for (let elem of $('.product-card')) {
+                let productName = $($(elem).children()[1]).text();
+
+                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
+                    $(elem).hide();
+                }
+            }
+        });
+    </script>*@

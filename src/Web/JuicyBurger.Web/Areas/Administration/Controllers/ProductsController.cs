@@ -31,7 +31,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             this.ViewData["productTypes"] = allProductTypes.Select(productType => new ProductTypeViewModel
             {
-                Name = productType.Name,
+                Name = productType.Name
             });
 
             return this.View();
@@ -47,7 +47,9 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
                 Name = serviceModel.Name,
                 Price = serviceModel.Price,
                 Weight = serviceModel.Weight,
+                Quantity = serviceModel.Quantity,
                 Image = imageUrl,
+                Description = serviceModel.Description,
                 ProductType = new ProductTypeServiceModel
                 {
                     Name = serviceModel.ProductType

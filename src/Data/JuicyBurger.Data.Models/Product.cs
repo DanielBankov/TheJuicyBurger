@@ -16,7 +16,7 @@ namespace JuicyBurger.Data.Models
 
         public string Name { get; set; }
 
-        public bool InStock { get; set; }
+        public int Quantity { get; set; }
 
         public double Weight { get; set; }
 
@@ -29,6 +29,8 @@ namespace JuicyBurger.Data.Models
         public double Proteins { get; set; }
 
         public double TotalCalories { get; set; }
+
+        public string Description { get; set; }
 
         public string Image { get; set; }
 

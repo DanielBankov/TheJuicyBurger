@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container shadow mt-5">
+<div class="container shadow mt-1 p-5">
     <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Create Product</h2>
     <hr />
     <form method="post" asp-action="/Administration/Products/Create" enctype="multipart/form-data">
@@ -24,7 +24,7 @@
                 <div class="d-flex justify-content-center">
                     <label asp-for="Name" class="text-dark font-weight-bold">Price</label>
                 </div>
-                <input asp-for="Price" type="text" class="form-control" id="price" placeholder="Price">
+                <input asp-for="Price" type="number" class="form-control" id="price" placeholder="Price">
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
         </div>
@@ -33,18 +33,24 @@
                 <div class="d-flex justify-content-center">
                     <label asp-for="Weight" class="text-dark font-weight-bold">Weight</label>
                 </div>
-                <input asp-for="Weight" type="text" class="form-control" id="weight" placeholder="Weight">
+                <input asp-for="Weight" type="number" class="form-control" id="weight" placeholder="Weight">
                 <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
-            @*<div class="form-group custom-file mx-auto w-auto">
-                <div class="d-flex justify-content-center">
-                    <label asp-for="Image" class="text-dark font-weight-bold">Image</label>
+            <div class="form-group custom-file mx-auto w-auto">
+                    <div class="d-flex justify-content-center">
+                        <label asp-for="Quantity" class="text-dark font-weight-bold">Quantity</label>
+                    </div>
+                    <input asp-for="Quantity" type="number" class="form-control" id="quantity" placeholder="Quantity">
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
-                <input asp-for="Image" type="text" class="form-control" id="image" placeholder="Image">
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>*@
         </div>
-        <hr />
+        <div class="form-group mx-auto w-50">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Description" class="text-dark font-weight-bold">Description</label>
+            </div>
+            <textarea asp-for="Description" class="form-control rounded" id="description" rows="3" placeholder="Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
         <div class="form-group mx-auto w-25">
             <div class="d-flex justify-content-center">
                 <label asp-for="ProductType" class="text-dark h5">Product Type</label>
@@ -71,6 +77,7 @@
             </div>
             <img id='img-upload' />
         </div>
+        <hr />
 
         <div class="d-flex justify-content-center">
             <button class="btn btn-dark font-weight-bold mb-3">Create Product</button>
