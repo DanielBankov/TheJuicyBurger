@@ -8,6 +8,7 @@ namespace JuicyBurger.Data.Models
         public JBUser()
         {
             this.Reviews = new HashSet<Review>();
+            //this.Orders = new HashSet<Order>();
         }
 
         public string FullName { get; set; }
@@ -15,5 +16,6 @@ namespace JuicyBurger.Data.Models
         //public JBUserRole UserRole { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
+        //public ICollection<Order> Orders { get; set; }
     }
 }

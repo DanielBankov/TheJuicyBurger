@@ -1,6 +1,9 @@
-﻿namespace JuicyBurger.Services.Models
+﻿using JuicyBurger.Data.Models;
+using JuicyBurger.Services.Mapping;
+
+namespace JuicyBurger.Services.Models.Products
 {
-    public class ProductsCreateInputServiceModel
+    public class ProductsCreateInputServiceModel : IMapFrom<Product>, IMapTo<Product>
     {
         public string Id { get; set; }
 

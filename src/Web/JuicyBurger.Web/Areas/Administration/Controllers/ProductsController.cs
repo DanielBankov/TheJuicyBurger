@@ -1,6 +1,6 @@
-﻿using JuicyBurger.Service;
+﻿using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Cloud;
-using JuicyBurger.Services.Models;
+using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;

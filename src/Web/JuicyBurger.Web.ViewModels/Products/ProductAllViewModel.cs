@@ -1,7 +1,12 @@
-﻿namespace JuicyBurger.Web.ViewModels.Products
+﻿using System.Collections.Generic;
+
+namespace JuicyBurger.Web.ViewModels.Products
 {
     public class ProductAllViewModel
     {
+
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public int Quantity { get; set; }
@@ -17,5 +22,7 @@
         public int ProductTypeId { get; set; }
 
         public string ProductType { get; set; }
+
+
     }
 }

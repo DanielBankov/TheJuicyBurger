@@ -14,7 +14,9 @@
     text-align: center;
 }
 
-
+thumbnail {
+    background: #000;
+}
 
 .main-content-icons-text {
     font-family: Impact, Charcoal, sans-serif;

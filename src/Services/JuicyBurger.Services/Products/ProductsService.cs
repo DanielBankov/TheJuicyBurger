@@ -1,6 +1,8 @@
 ﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
+using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Models;
+using JuicyBurger.Services.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,7 @@ namespace JuicyBurger.Service
                 .Where(type => type.ProductType.Id == id)
                 .Select(product => new ProductAllServiceModel
                 {
+                    Id = product.Id,
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
@@ -67,6 +70,28 @@ namespace JuicyBurger.Service
             int result = context.SaveChanges();
 
             return result > 0;
+        }
+
+        public ProductsDetailsServiceModel Details(string id)
+        {
+            var dbProduct = context.Products.Where(product => product.Id == id).FirstOrDefault();
+
+            var serviceModel = new ProductsDetailsServiceModel
+            {
+                Id = dbProduct.Id,
+                Name = dbProduct.Name,
+                Carbohydrates = dbProduct.Carbohydrates,
+                Description = dbProduct.Description,
+                Price = dbProduct.Price,
+                Image = dbProduct.Image,
+                Fat = dbProduct.Fat,
+                Proteins = dbProduct.Proteins,
+                TotalCalories = dbProduct.TotalCalories,
+                Quantity = dbProduct.Quantity,
+                Weight = dbProduct.Weight
+            };
+
+            return serviceModel;
         }
 
         public IQueryable<ProductTypeServiceModel> GetAllTypes()

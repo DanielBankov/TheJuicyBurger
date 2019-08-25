@@ -8,6 +8,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -18,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\JuicyBurger.Data\JuicyBurger.Data.csproj" />
+    <ProjectReference Include="..\..\Services\JuicyBurger.Services.Mapping\JuicyBurger.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\JuicyBurger.Services\JuicyBurger.Services.csproj" />
     <ProjectReference Include="..\JuicyBurger.Web.InputModels\JuicyBurger.Web.InputModels.csproj" />
     <ProjectReference Include="..\JuicyBurger.Web.ViewModels\JuicyBurger.Web.ViewModels.csproj" />

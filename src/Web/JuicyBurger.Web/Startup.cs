@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CloudinaryDotNet;
+using JuicyBurger.Data;
+using JuicyBurger.Data.Models;
+using JuicyBurger.Service;
+using JuicyBurger.Service.Products;
+using JuicyBurger.Services.Cloud;
+using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Products;
+using JuicyBurger.Services.Orders;
+using JuicyBurger.Web.Extensions;
+using JuicyBurger.Web.InputModels.Products;
+using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using JuicyBurger.Data.Models;
-using JuicyBurger.Data;
-using JuicyBurger.Web.Extensions;
-using JuicyBurger.Service;
+using System;
 using System.Globalization;
-using CloudinaryDotNet;
-using JuicyBurger.Services.Cloud;
+using System.Reflection;
 
 namespace JuicyBurger.Web
 {
@@ -50,6 +52,7 @@ namespace JuicyBurger.Web
                 .AddDefaultTokenProviders();
 
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IOrdersService, OrdersService>();
             services.AddSingleton<ICloudinaryService, CloudinaryService>();
 
             services.Configure<IdentityOptions>(options =>
@@ -99,6 +102,11 @@ namespace JuicyBurger.Web
                 app.UseHsts();
             }
 
+            AutoMapperConfig.RegisterMappings(
+                typeof(ProductsCreateInputModel).GetTypeInfo().Assembly,
+                typeof(ProductAllViewModel).GetTypeInfo().Assembly,
+                typeof(ProductAllServiceModel).GetTypeInfo().Assembly);
+
             //The code below, fix floating point issue for double/decimal form field.
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
@@ -110,6 +118,7 @@ namespace JuicyBurger.Web
                     context.Database.EnsureCreated();
 
                     DatabaseSeed.CreateRoles(context);
+                    DatabaseSeed.CreateOrderStatuses(context);
                 }
             }
 

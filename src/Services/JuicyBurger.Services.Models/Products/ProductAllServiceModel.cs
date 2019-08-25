@@ -1,7 +1,12 @@
-﻿namespace JuicyBurger.Services.Models
+﻿using JuicyBurger.Data.Models;
+using JuicyBurger.Services.Mapping;
+
+namespace JuicyBurger.Services.Models.Products
 {
-    public class ProductAllServiceModel
+    public class ProductAllServiceModel : IMapTo<Product>, IMapFrom<Product>
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public int Quantity { get; set; }

@@ -10,6 +10,7 @@ namespace JuicyBurger.Data
         //public DbSet<JBUserRole> JBUserRoles { get; set; }
         public DbSet<Dasher> Dashers { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Receipt> Recipts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Order> Orders { get; set; }

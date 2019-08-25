@@ -1,6 +1,6 @@
 ﻿namespace JuicyBurger.Web.ViewModels.Products
 {
-    public class ProducstAllViewModel
+    public class ProductsDetailsViewModel
     {
         public string Id { get; set; }
 

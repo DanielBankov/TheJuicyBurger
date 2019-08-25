@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\JuicyBurger.Services.Mapping\JuicyBurger.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\JuicyBurger.Services.Models\JuicyBurger.Services.Models.csproj" />
+  </ItemGroup>
+
 </Project>

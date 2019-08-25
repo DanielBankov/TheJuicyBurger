@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj" />
+    <ProjectReference Include="..\JuicyBurger.Services.Mapping\JuicyBurger.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>
