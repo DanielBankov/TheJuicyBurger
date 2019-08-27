@@ -1,6 +1,9 @@
-﻿namespace JuicyBurger.Web.ViewModels.Products
+﻿using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Products;
+
+namespace JuicyBurger.Web.ViewModels.Products
 {
-    public class ProductTypeViewModel
+    public class ProductTypeViewModel : IMapFrom<ProductTypeServiceModel>, IMapTo<ProductTypeServiceModel>
     {
         public int Id { get; set; }
 

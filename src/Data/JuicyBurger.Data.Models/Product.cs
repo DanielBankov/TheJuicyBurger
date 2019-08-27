@@ -5,20 +5,16 @@ namespace JuicyBurger.Data.Models
 {
     public class Product
     {
-        public Product()
-        {
-            this.ProductIngredients = new HashSet<ProductIngredient>();
-            this.Reviews = new HashSet<Review>();
-            //this.OrderProducts = new HashSet<OrderProduct>();
-        }
+        //public Product()
+        //{
+        //    this.ProductIngredients = new HashSet<ProductIngredient>();
+        //    this.Reviews = new HashSet<Review>();
+        //    //this.OrderProducts = new HashSet<OrderProduct>();
+        //}
 
         public string Id { get; set; }
 
         public string Name { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double Weight { get; set; }
 
         public decimal Price { get; set; }
 
@@ -38,9 +34,9 @@ namespace JuicyBurger.Data.Models
 
         public ProductType ProductType { get; set; }
 
-        public ICollection<ProductIngredient> ProductIngredients { get; set; }
+        //public ICollection<ProductIngredient> ProductIngredients { get; set; }
 
-        public ICollection<Review> Reviews { get; set; }
+        //public ICollection<Review> Reviews { get; set; }
 
         //public ICollection<OrderProduct> OrderProducts { get; set; }
     }

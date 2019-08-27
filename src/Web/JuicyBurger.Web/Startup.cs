@@ -1,4 +1,5 @@
-﻿using CloudinaryDotNet;
+﻿using AutoMapper;
+using CloudinaryDotNet;
 using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Service;
@@ -7,6 +8,7 @@ using JuicyBurger.Services.Cloud;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Services.Orders;
+using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.Extensions;
 using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Products;
@@ -53,7 +55,9 @@ namespace JuicyBurger.Web
 
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IOrdersService, OrdersService>();
+            services.AddTransient<IReceiptService, ReceiptService>();
             services.AddSingleton<ICloudinaryService, CloudinaryService>();
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -90,6 +94,11 @@ namespace JuicyBurger.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(
+              typeof(Product).GetTypeInfo().Assembly,
+              typeof(ProductsCreateInputModel).GetTypeInfo().Assembly,
+              typeof(ProductViewModel).GetTypeInfo().Assembly,
+              typeof(ProductServiceModel).GetTypeInfo().Assembly);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -102,10 +111,8 @@ namespace JuicyBurger.Web
                 app.UseHsts();
             }
 
-            AutoMapperConfig.RegisterMappings(
-                typeof(ProductsCreateInputModel).GetTypeInfo().Assembly,
-                typeof(ProductAllViewModel).GetTypeInfo().Assembly,
-                typeof(ProductAllServiceModel).GetTypeInfo().Assembly);
+          
+
 
             //The code below, fix floating point issue for double/decimal form field.
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;

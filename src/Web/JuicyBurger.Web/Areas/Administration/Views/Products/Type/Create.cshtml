@@ -8,22 +8,45 @@
 
 <div class="container shadow mt-5">
     <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Create Product Type</h2>
-
     <hr />
     <div class="row d-flex justify-content-center text-center">
         <div class="col-md-4">
-            <form method="post" asp-action="/Administration/Products/Type/Create">
+            <form id="order-form" method="post" asp-action="/Administration/Products/Type/Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label font-weight-bold">Name</label>
-                    <input asp-for="Name" class="form-control" type="text" placeholder="Type Name" />
+                    <input asp-for="Name" class="form-control" type="text" placeholder="Type Name" id="name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-dark font-weight-bold" />
+                    <input type="button" value="Create" class="btn btn-dark font-weight-bold" data-toggle="modal" data-target="#exampleModalCenter" />
                 </div>
             </form>
-            
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">You successfully added type!</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal" id="complete-order-button">Continue</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+<script>
+    $('#complete-order-button').click(function () {
+        $('#order-form').submit();
+    });
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

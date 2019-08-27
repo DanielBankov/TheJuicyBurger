@@ -5,13 +5,13 @@ namespace JuicyBurger.Service.Products
 {
     public interface IProductsService
     {
-        IQueryable<ProductAllServiceModel> All(int id);
+        IQueryable<ProductServiceModel> All(int id);
 
-        IQueryable<ProductAllServiceModel> Search(string searchString);
+        IQueryable<ProductServiceModel> Search(string searchString);
 
         ProductsDetailsServiceModel Details(string id);
 
-        bool Create(ProductsCreateInputServiceModel inputModel);
+        bool Create(ProductServiceModel inputModel);
 
         bool CreateType(ProductTypeServiceModel inputModel);
 

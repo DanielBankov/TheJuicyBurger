@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using JuicyBurger.Data.Models;
+using JuicyBurger.Services.Mapping;
 
-namespace JuicyBurger.Web.ViewModels.Products
+namespace JuicyBurger.Services.Models.Products
 {
-    public class ProductAllViewModel
+    public class ProductServiceModel : IMapFrom<Product>, IMapTo<Product>
     {
-
         public string Id { get; set; }
 
         public string Name { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double Weight { get; set; }
 
         public decimal Price { get; set; }
 
@@ -21,8 +17,6 @@ namespace JuicyBurger.Web.ViewModels.Products
 
         public int ProductTypeId { get; set; }
 
-        public string ProductType { get; set; }
-
-
+        public ProductTypeServiceModel ProductType { get; set; }
     }
 }

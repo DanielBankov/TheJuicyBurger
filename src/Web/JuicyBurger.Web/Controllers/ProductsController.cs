@@ -24,17 +24,14 @@ namespace JuicyBurger.Web.Controllers
             GetAllProductTypes();
 
             var products = productsService.All(id)
-                .Select(product => new ProductAllViewModel
+                .Select(product => new ProductViewModel
                 {
                     Id = product.Id,
                     Name = product.Name,
                     Description = product.Description,
-                    ProductType = product.ProductType,
                     ProductTypeId = product.ProductTypeId,
                     Price = product.Price,
-                    Image = product.Image,
-                    Quantity = product.Quantity,
-                    Weight = product.Weight
+                    Image = product.Image
                 })
                 .ToList();
 
@@ -55,9 +52,7 @@ namespace JuicyBurger.Web.Controllers
                 Image = serviceModel.Image,
                 Fat = serviceModel.Fat,
                 Proteins = serviceModel.Proteins,
-                TotalCalories = serviceModel.TotalCalories,
-                Quantity = serviceModel.Quantity,
-                Weight = serviceModel.Weight
+                TotalCalories = serviceModel.TotalCalories
             };
 
             return View(viewModel);
@@ -69,36 +64,18 @@ namespace JuicyBurger.Web.Controllers
             GetAllProductTypes();
 
             var searchedProducts = productsService.Search(searchString)
-                .Select(product => new ProductAllViewModel
+                .Select(product => new ProductViewModel
                 {
                     Id = product.Id,
                     Name = product.Name,
                     Description = product.Description,
-                    ProductType = product.ProductType,
                     ProductTypeId = product.ProductTypeId,
                     Price = product.Price,
-                    Image = product.Image,
-                    Quantity = product.Quantity,
-                    Weight = product.Weight
+                    Image = product.Image
                 })
                 .ToList();
 
             return View("All", searchedProducts);
-        }
-
-        public IActionResult BurgersMenu()
-        {
-            return View();
-        }
-
-        public IActionResult FriesMenu()
-        {
-            return View();
-        }
-
-        public IActionResult DrinksMenu()
-        {
-            return View();
         }
 
         private void GetAllProductTypes()

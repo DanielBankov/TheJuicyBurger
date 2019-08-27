@@ -12,6 +12,6 @@ namespace JuicyBurger.Services.Models.Orders
 
         public string ProductId { get; set; }
 
-        public ProductAllServiceModel Product { get; set; }
+        public ProductServiceModel Product { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
 using JuicyBurger.Services.Orders;
+using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +15,16 @@ namespace JuicyBurger.Web.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrdersService ordersService;
+        private readonly IReceiptService receiptService;
 
-        public OrdersController(IOrdersService OrdersService)
+        public OrdersController(IOrdersService ordersService, IReceiptService receiptService)
         {
-            this.ordersService = OrdersService;
+            this.ordersService = ordersService;
+            this.receiptService = receiptService;
         }
 
         [HttpGet]
         public IActionResult Cart()
-
         {
             List<OrderCartViewModel> orders = this.ordersService.GetAll()
                 .Where(order => order.OrderStatus.Name == "Active"
@@ -34,9 +36,13 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cart(string card)
+        public IActionResult Complete()
         {
-            return View();
+            string recipientId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            string receiptId = this.receiptService.Create(recipientId);
+
+            return this.Redirect($"/Receipts/Details/{receiptId}");
         }
     }
 }

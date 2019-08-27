@@ -42,19 +42,8 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         {
             string imageUrl = this.cloudinaryServices.UploadeImage(serviceModel.Image, serviceModel.Name);
 
-            ProductsCreateInputServiceModel product = new ProductsCreateInputServiceModel
-            {
-                Name = serviceModel.Name,
-                Price = serviceModel.Price,
-                Weight = serviceModel.Weight,
-                Quantity = serviceModel.Quantity,
-                Image = imageUrl,
-                Description = serviceModel.Description,
-                ProductType = new ProductTypeServiceModel
-                {
-                    Name = serviceModel.ProductType
-                }
-            };
+            ProductServiceModel product = AutoMapper.Mapper.Map<ProductServiceModel>(serviceModel);
+            product.Image = imageUrl;
 
             this.productsServices.Create(product);
 

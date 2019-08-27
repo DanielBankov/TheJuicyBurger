@@ -15,8 +15,6 @@ namespace JuicyBurger.Data.Models
 
         public double Weight { get; set; }
 
-        public decimal Price { get; set; }
-
         public double Carbohydrates { get; set; }
 
         public double Proteins { get; set; }

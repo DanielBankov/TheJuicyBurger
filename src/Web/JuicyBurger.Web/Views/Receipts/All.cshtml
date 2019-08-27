@@ -1,0 +1,40 @@
+﻿@model List<JuicyBurger.Web.ViewModels.Receipt.ReceiptAllViewModel>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container shadow rounded p-5 mt-5 ">
+    <h1 class="text-center main-content-icons-text">Your Receipts</h1>
+    <hr class="hr w-75">
+    <div class="products-holder  mx-auto">
+        <table class="table table-hover">
+            <thead class="thead-dark text-center font-weight-bold">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Receipt Id</th>
+                    <th scope="col">Issued On</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tbody>
+                    <tr class="text-center">
+                        <th scope="row">@(i + 1)</th>
+                        <td>@Model[i].Id</td>
+                        <td>@Model[i].IssuedOn.ToString("dd/MM/yyyy")</td>
+                        <td>@Model[i].ProductsQty.ToString("F2")</td>
+                        <td>&#36;@Model[i].Total</td>
+                        <td>
+                            <a href="/Receipts/Details/@Model[i].Id" class="btn btn-dark font-weight-bold">Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
