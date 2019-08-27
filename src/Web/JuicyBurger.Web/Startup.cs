@@ -9,6 +9,7 @@ using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Services.Receipts;
+using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.Extensions;
 using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Products;
@@ -56,6 +57,7 @@ namespace JuicyBurger.Web
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IReceiptService, ReceiptService>();
+            services.AddTransient<IRestaurantsService, RestaurantsService>();
             services.AddSingleton<ICloudinaryService, CloudinaryService>();
 
 

@@ -1,6 +1,9 @@
-﻿namespace JuicyBurger.Data.Models
+﻿using JuicyBurger.Data.Models;
+using JuicyBurger.Services.Mapping;
+
+namespace JuicyBurger.Services.Models.Restaurants
 {
-    public class Restaurant
+    public class RestaurantsServiceModel : IMapFrom<Restaurant>, IMapTo<Restaurant>
     {
         public string Id { get; set; }
 

@@ -19,17 +19,20 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/welcome-index.css" />
     <link rel="stylesheet" href="~/css/carousel.css" />
-    <link rel="stylesheet" href="~/css/footer-down.css" />
-    <link rel="stylesheet" href="~/css/img-thumbnail-color.css" />
+    <link rel="stylesheet" href="~/css/custom-colors.css" />
+    <link rel="stylesheet" href="~/css/sticky-footer.css" />
 
 </head>
+
 <body>
     <div id="page-container">
         <header>
-            <!-- Navigation -->
 
+            <!-- Navigation -->
             <div id="content-wrap">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+                    <!-- Logo -->
                     <div class="container">
                         <a href="/">
                             <img alt="Brand" src="~/images/burgerLogo.png" height="50" />
@@ -37,6 +40,8 @@
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
+
+                        <!-- Navbar menu -->
                         <div class="collapse navbar-collapse" id="navbarResponsive">
                             <ul class="navbar-nav ml-auto">
                                 @if (!this.User.Identity.IsAuthenticated)
@@ -48,7 +53,7 @@
                                         <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/About">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/Contact">Contact</a>
+                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/Contact">Contacts</a>
                                     </li>
                                     <li class="nav-item">
                                         <a id="font-welcome" class="nav-link font-weight-bold" href="/Identity/Account/Login">Sing In</a>
@@ -63,13 +68,16 @@
                                         <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/About">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/Contact">Contact</a>
+                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/Contact">Contacts</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Orders/Cart">Cart</a>
+                                    </li>
+                                    <li><h3 class="text-muted">|</h3></li>
                                     <li class="nav-item">
                                         <a id="font-welcome" class="nav-link font-weight-bold" href="/Identity/Account/Logout">Logout</a>
                                     </li>
                                 }
-
                                 @if (this.User.IsInRole("Admin"))
                                 {
                                     <li class="nav-item dropdown">
@@ -88,17 +96,110 @@
                         </div>
                     </div>
                 </nav>
+
             </div>
         </header>
+
+        <!-- RenderBody -->
         <div>
             <partial name="_CookieConsentPartial" />
             <main role="main">
                 @RenderBody()
             </main>
         </div>
-        <footer id="footer" class="footer mt-5">
-            <div class="container-fluid py-2 bg-dark">
-                <p class="m-0 text-center text-white">Copyright &copy; The Juicy Burger 2019</p>
+
+        <!-- Footer -->
+        <footer id="footer" class="footer font-small bg-dark pt-0">
+            <div class="container text-center text-md-left">
+                <div class="row text-center text-md-left mt-3 pb-3">
+
+                    <!-- Grid column -->
+                    <div id="font-welcome" class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-secondary">
+                        <h4 class="mb-4 font-weight-bold">The Juicy Burger</h4>
+                        <p>
+                            Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+                            consectetur
+                            adipisicing elit.
+                            The Juicy burger team!
+                        </p>
+                    </div>
+                    <hr class="w-100 clearfix d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-secondary text-center">
+                        <h5 id="font-welcome" class="text-uppercase mb-4 font-weight-bold ">Products</h5>
+                        <ul class="navbar-nav ml-auto">
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="/Products/All/1">Our Menu</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="#">Delivery</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="/Home/About">About</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="/Home/Contact">Contacts</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="w-100 clearfix d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3 text-secondary text-center">
+                        <h5 id="font-welcome" class="text-uppercase mb-4 font-weight-bold">Useful links</h5>
+                        <ul class="navbar-nav ml-auto">
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="#">Your Account</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="#">Become a Dasher</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a class="text-secondary" href="/Restaurants/Create">Become a Partner</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="w-100 clearfix d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3 text-secondary">
+
+                        <!-- Social buttons -->
+                        <h5 id="font-welcome" class="text-center font-weight-bold text-uppercase mb-4">Follow Us</h5>
+                        <div class="text-center">
+                            <p>Facebook</p>
+                        </div>
+                        <div class="text-center">
+                            <p>Twitter</p>
+                        </div>
+                        <div class="text-center">
+                            <p>Google+</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="bg-light">
+
+                <!-- Grid column -->
+                <div class="d-flex justify-content-center">
+                    <p id="font-welcome" class="text-center text-md-left text-secondary">
+                        Copyright &copy; The Juicy Burger 2019
+                    </p>
+                </div>
             </div>
         </footer>
     </div>
