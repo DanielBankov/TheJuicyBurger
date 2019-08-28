@@ -1,4 +1,6 @@
-﻿namespace JuicyBurger.Data.Models
+﻿using System;
+
+namespace JuicyBurger.Data.Models
 {
     public class Restaurant
     {
@@ -8,10 +10,14 @@
 
         public string Company { get; set; }
 
+        public DateTime IssuedOn { get; set; }
+
         public string Location { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string VatNumber { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

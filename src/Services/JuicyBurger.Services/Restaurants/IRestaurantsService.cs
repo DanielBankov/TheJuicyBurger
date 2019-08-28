@@ -1,12 +1,14 @@
 ﻿using JuicyBurger.Services.Models.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace JuicyBurger.Services.Restaurants
 {
-    public interface IRestaurantsService
+    public interface IRestaurantsService 
     {
         bool Create(RestaurantsServiceModel serviceModel);
+
+        bool Delete(string id);
+
+        IQueryable<RestaurantsServiceModel> AllNotDeletedRequests();
     }
 }
