@@ -4,7 +4,7 @@ using JuicyBurger.Services.Models.Products;
 
 namespace JuicyBurger.Services.Models.Orders
 {
-    public class OrderProductServiceModel : IMapTo<OrderProduct>, IMapFrom<OrderProduct>
+    public class OrderProductServiceModel : /*IMapTo<OrderProduct>,*/ IMapFrom<OrderProduct>
     {
         public string OrderId { get; set; }
 

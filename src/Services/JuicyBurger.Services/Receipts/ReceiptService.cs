@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using JuicyBurger.Data;
+﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Receipts;
 using JuicyBurger.Services.Orders;
+using System;
+using System.Linq;
 
 namespace JuicyBurger.Services.Receipts
 {

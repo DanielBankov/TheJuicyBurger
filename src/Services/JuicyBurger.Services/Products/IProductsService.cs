@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Services.Models.Products;
 using System.Linq;
+using System.Text;
 
 namespace JuicyBurger.Service.Products
 {
@@ -16,5 +17,7 @@ namespace JuicyBurger.Service.Products
         bool CreateType(ProductTypeServiceModel inputModel);
 
         IQueryable<ProductTypeServiceModel> GetAllTypes();
+
+        string GetAllIngredientsName(ProductsDetailsServiceModel serviceModel);
     }
 }

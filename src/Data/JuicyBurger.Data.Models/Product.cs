@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace JuicyBurger.Data.Models
 {
     public class Product
     {
-        //public Product()
-        //{
-        //    this.ProductIngredients = new HashSet<ProductIngredient>();
-        //    this.Reviews = new HashSet<Review>();
-        //    //this.OrderProducts = new HashSet<OrderProduct>();
-        //}
+        public Product()
+        {
+            this.ProductIngredients = new List<ProductIngredient>();
+        }
 
         public string Id { get; set; }
 
@@ -34,10 +31,8 @@ namespace JuicyBurger.Data.Models
 
         public ProductType ProductType { get; set; }
 
-        //public ICollection<ProductIngredient> ProductIngredients { get; set; }
+        public virtual List<ProductIngredient> ProductIngredients { get; set; }
 
         //public ICollection<Review> Reviews { get; set; }
-
-        //public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace JuicyBurger.Web.ViewModels.Products
 {
-    public class ProductsCreateViewModel
+    public class ProductsCreateViewModel // del this
     {
         public string Id { get; set; }
 
@@ -16,10 +16,8 @@
 
         public ProductTypeViewModel ProductType { get; set; }
 
-       //public ICollection<ProductIngredient> ProductIngredients { get; set; }
-       //
+       //public ICollection</*Ingredient*/> Ingredients { get; set; }
+       
        //public ICollection<Review> Reviews { get; set; }
-       //
-       //public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

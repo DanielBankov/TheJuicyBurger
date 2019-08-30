@@ -6,7 +6,7 @@ using System;
 
 namespace JuicyBurger.Services.Models.Orders
 {
-    public class OrderServiceModel : IMapTo<Order>, IMapFrom<Order>
+    public class OrderServiceModel : /*IMapTo<Order>,*/ IMapFrom<Order>
     {
         public string Id { get; set; }
 

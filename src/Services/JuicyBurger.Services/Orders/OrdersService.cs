@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using JuicyBurger.Data;
+﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
+using System;
+using System.Linq;
 
 namespace JuicyBurger.Services.Orders
 {
@@ -37,12 +36,7 @@ namespace JuicyBurger.Services.Orders
 
         public bool Create(string id, string comment, string issuer)
         {
-            //var productDb = context.Products.Where(product => product.Id == id);
-
-            //var order = new OrderProduct
-            //{
-            //      ProductId = id
-            //};
+            //TODO: add comment 
 
             var issuedOn = DateTime.UtcNow;
 
@@ -56,12 +50,6 @@ namespace JuicyBurger.Services.Orders
 
             order.OrderStatus = context.OrderStatuses.SingleOrDefault(os => os.Name == "Active");
 
-            //order.OrderProducts.Add(new OrderProduct
-            //{
-            //    ProductId = id,
-            //    Order = order
-            //});
-
             context.Orders.Add(order);
             var result = context.SaveChanges();
 
@@ -70,11 +58,7 @@ namespace JuicyBurger.Services.Orders
 
         public IQueryable<OrderServiceModel> GetAll()
         {
-            //var userDb = context.Users.SingleOrDefault(user => user.Id == userId); // include
-
-
-            var a = this.context.Orders.To<OrderServiceModel>();
-            return a;
+            return this.context.Orders.To<OrderServiceModel>();
         }
 
         public void SetOrdersToReceipt(Receipt receipt)

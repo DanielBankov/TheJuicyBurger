@@ -13,15 +13,14 @@ namespace JuicyBurger.Data
         public DbSet<Receipt> Recipts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; }
-        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<ProductIngredient> ProductIngredients { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantContract> RestaurantContracts { get; set; }
 
-        public JuicyBurgerDbContext(DbContextOptions<JuicyBurgerDbContext> options) 
+        public JuicyBurgerDbContext(DbContextOptions<JuicyBurgerDbContext> options)
             : base(options)
         {
         }
@@ -32,14 +31,17 @@ namespace JuicyBurger.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<OrderProduct>().HasKey(key => new { key.OrderId, key.ProductId });
-
             builder.Entity<ProductIngredient>().HasKey(key => new { key.ProductId, key.IngredientId });
 
-//            builder.Entity<ProductIngredient>()
-//.HasOne(e => e.Ingredient)
-//.WithMany(e => e.Products)
-                
+            builder.Entity<ProductIngredient>()
+                .HasOne<Product>(sc => sc.Product)
+                .WithMany(s => s.ProductIngredients)
+                .HasForeignKey(sc => sc.ProductId);
+
+            builder.Entity<ProductIngredient>()
+                .HasOne<Ingredient>(sc => sc.Ingredient)
+                .WithMany(s => s.ProductIngredients)
+                .HasForeignKey(sc => sc.IngredientId);
 
             base.OnModelCreating(builder);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using JuicyBurger.Services.Models.Restaurants;
 using JuicyBurger.Services.Restaurants;
@@ -32,8 +33,11 @@ namespace JuicyBurger.Web.Controllers
         [HttpPost]
         public IActionResult Create(RestaurantsCreateInputModel inputModel)
         {
+            var contractorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             var restaurant = AutoMapper.Mapper.Map<RestaurantsServiceModel>(inputModel);
-            this.restaurantServices.Create(restaurant);
+
+            this.restaurantServices.CreatePartner(restaurant, contractorId);
 
             return this.Redirect("/");
         }

@@ -1,4 +1,5 @@
 ﻿using JuicyBurger.Service.Products;
+using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,13 @@ namespace JuicyBurger.Web.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductsService productsService;
+        private readonly IIngredientsService ingredientsService;
         private readonly IOrdersService ordersService;
 
-        public ProductsController(IProductsService productsService, IOrdersService OrdersService)
+        public ProductsController(IProductsService productsService, IOrdersService OrdersService, IIngredientsService ingredientsService)
         {
             this.productsService = productsService;
+            this.ingredientsService = ingredientsService;
             this.ordersService = OrdersService;
         }
 
@@ -23,6 +26,7 @@ namespace JuicyBurger.Web.Controllers
         {
             GetAllProductTypes();
 
+            //TODO: Map with AutoMapper
             var products = productsService.All(id)
                 .Select(product => new ProductViewModel
                 {
@@ -42,6 +46,7 @@ namespace JuicyBurger.Web.Controllers
         {
             var serviceModel = productsService.Details(id);
 
+            //TODO: Map with AutoMapper
             var viewModel = new ProductsDetailsViewModel
             {
                 Id = serviceModel.Id,
@@ -55,6 +60,10 @@ namespace JuicyBurger.Web.Controllers
                 TotalCalories = serviceModel.TotalCalories
             };
 
+            var ingNames = this.productsService.GetAllIngredientsName(serviceModel);
+
+            this.ViewData["ingredientsName"] = ingNames;
+
             return View(viewModel);
         }
 
@@ -63,6 +72,7 @@ namespace JuicyBurger.Web.Controllers
         {
             GetAllProductTypes();
 
+            ////TODO: Map with AutoMapper
             var searchedProducts = productsService.Search(searchString)
                 .Select(product => new ProductViewModel
                 {
@@ -79,7 +89,7 @@ namespace JuicyBurger.Web.Controllers
         }
 
         private void GetAllProductTypes()
-        {
+            {
             var allProductTypes = this.productsService.GetAllTypes();
 
             this.ViewData["productTypesMenu"] = allProductTypes.Select(productType => new ProductTypeViewModel
@@ -87,6 +97,10 @@ namespace JuicyBurger.Web.Controllers
                 Id = productType.Id,
                 Name = productType.Name
             });
+
+            this.ViewData["productTypeAllProductsIndex"] = allProductTypes.SingleOrDefault().Id;
+
+            //validate if productTypes are null
         }
 
         [HttpPost(Name = "Order")]

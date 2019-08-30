@@ -5,7 +5,9 @@ namespace JuicyBurger.Services.Restaurants
 {
     public interface IRestaurantsService 
     {
-        bool Create(RestaurantsServiceModel serviceModel);
+        bool CreatePartner(RestaurantsServiceModel serviceModel, string contractorId);
+
+        bool CreateContract(RestaurantContractServiceModel serviceModel);
 
         bool Delete(string id);
 

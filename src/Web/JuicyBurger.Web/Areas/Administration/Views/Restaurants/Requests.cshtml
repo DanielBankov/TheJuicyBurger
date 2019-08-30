@@ -8,6 +8,12 @@
 <div class="container shadow rounded p-5 mt-5 ">
     <h1 class="text-center main-content-icons-text">Restaurant Partner Requests</h1>
     <hr class="hr w-75">
+    @if (Model.Count == 0)
+    {
+        <h3 class="text-center main-content-icons-text">You don't have requests yet.</h3>
+    }
+    else
+    {
     <div class="products-holder  mx-auto">
         <table class="table table-hover">
             <thead class="thead-dark text-center font-weight-bold">
@@ -34,7 +40,8 @@
                         <td>@Model[i].PhoneNumber</td>
                         <td>@Model[i].VatNumber</td>
                         <td>
-                            <a href="/Administration/Restaurants/Contract" class="btn btn-dark font-weight-bold">Accept</a>
+                            <input type="hidden" value="" name="id" />
+                            <a href="/Administration/Restaurants/Contracts/Create/@Model[i].Id" class="btn btn-dark font-weight-bold">Accept</a>
                             <a href="/Administration/Restaurants/Delete/@Model[i].Id" class="btn btn-dark font-weight-bold">Decline</a>
                         </td>
                     </tr>
@@ -42,4 +49,5 @@
             }
         </table>
     </div>
+    }
 </div>

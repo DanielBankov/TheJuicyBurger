@@ -4,7 +4,7 @@ using System;
 
 namespace JuicyBurger.Web.ViewModels.Restaurants
 {
-    public class RestaurantsRequestViewModel : IMapFrom<RestaurantsServiceModel>
+    public class RestaurantsViewModel : IMapFrom<RestaurantsServiceModel>
     {
         public string Id { get; set; }
 

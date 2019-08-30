@@ -1,5 +1,9 @@
-﻿using JuicyBurger.Data.Models;
+﻿using AutoMapper;
+using JuicyBurger.Data.Models;
 using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Ingredients;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JuicyBurger.Services.Models.Products
 {
@@ -18,5 +22,7 @@ namespace JuicyBurger.Services.Models.Products
         public int ProductTypeId { get; set; }
 
         public ProductTypeServiceModel ProductType { get; set; }
+
+        public List<IngredientServiceModel> Ingredients { get; set; }
     }
 }

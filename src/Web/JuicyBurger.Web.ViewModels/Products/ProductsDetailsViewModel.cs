@@ -1,6 +1,11 @@
-﻿namespace JuicyBurger.Web.ViewModels.Products
+﻿using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Products;
+using JuicyBurger.Web.ViewModels.Ingredients;
+using System.Collections.Generic;
+
+namespace JuicyBurger.Web.ViewModels.Products
 {
-    public class ProductsDetailsViewModel
+    public class ProductsDetailsViewModel : IMapFrom<ProductServiceModel>
     {
         public string Id { get; set; }
 
@@ -22,8 +27,9 @@
 
         public int ProductTypeId { get; set; }
 
-        public string ProductType { get; set; }//
+        public string ProductType { get; set; }
 
-        public string ProductIngredients { get; set; }
+        public List<IngredientsProductViewModel> Ingredients { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Restaurants;
+using JuicyBurger.Web.ViewModels.Users;
 
 namespace JuicyBurger.Web.InputModels.Restaurants
 {
@@ -16,5 +17,9 @@ namespace JuicyBurger.Web.InputModels.Restaurants
         public string Location { get; set; }
 
         public string VatNumber { get; set; }
+
+        public string ContractorId { get; set; }
+
+        public JBUserViewModel Contractor { get; set; }
     }
 }

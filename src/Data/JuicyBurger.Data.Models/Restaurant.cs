@@ -12,12 +12,18 @@ namespace JuicyBurger.Data.Models
 
         public DateTime IssuedOn { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+        public bool IsContractActive { get; set; } = false;
+
         public string Location { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string VatNumber { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
+        public string ContractorId { get; set; }
+
+        public JBUser Contractor { get; set; }
     }
 }

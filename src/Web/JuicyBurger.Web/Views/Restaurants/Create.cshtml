@@ -1,5 +1,4 @@
-﻿@using JuicyBurger.Web.ViewModels.Products
-@model JuicyBurger.Web.InputModels.Restaurants.RestaurantsCreateInputModel
+﻿@model JuicyBurger.Web.InputModels.Restaurants.RestaurantsCreateInputModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -8,62 +7,59 @@
 }
 
 <div class="container shadow mt-1 p-5">
-    <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Request Company Partner</h2>
-    <hr />
-    <form method="post" asp-action="/Restaurants/Create">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div class="form-group mx-auto w-50">
-            <div class="d-flex justify-content-center">
-                <label asp-for="FullName" class="text-dark font-weight-bold">Full Name</label>
-            </div>
-            <input asp-for="FullName" type="text" class="form-control" id="full-name" placeholder="Full Name">
-            <span asp-validation-for="FullName" class="text-danger"></span>
-        </div>
-        <div class="form-group mx-auto w-50">
-            <div class="d-flex justify-content-center">
-                <label asp-for="Company" class="text-dark font-weight-bold">Company</label>
-            </div>
-            <input asp-for="Company" type="text" class="form-control" id="company" placeholder="Company">
-            <span asp-validation-for="Company" class="text-danger"></span>
-        </div>
-        <div class="form-group mx-auto w-50">
-            <div class="d-flex justify-content-center">
-                <label asp-for="Location" class="text-dark font-weight-bold">Location</label>
-            </div>
-            <input asp-for="Location" type="text" class="form-control rounded" id="location" placeholder="Location">
-            <span asp-validation-for="Location" class="text-danger"></span>
-        </div>
-        <div class="form-group mx-auto w-50">
-            <div class="d-flex justify-content-center">
-                <label asp-for="PhoneNumber" type="text" class="text-dark font-weight-bold">Phone Number</label>
-            </div>
-            <input asp-for="PhoneNumber" class="form-control rounded" id="phone-number" placeholder="Phone Number">
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-        <div class="form-group mx-auto w-50">
-            <div class="d-flex justify-content-center">
-                <label asp-for="VatNumber" type="text" class="text-dark font-weight-bold">VAT Number</label>
-            </div>
-            <input asp-for="VatNumber" class="form-control rounded" id="vat-number" placeholder="VAT Number">
-            <span asp-validation-for="VatNumber" class="text-danger"></span>
-        </div>
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Request Company Partner</h2>
         <hr />
-
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-dark font-weight-bold mb-3">Send Request</button>
-        </div>
-    </form>
+        <form method="post" asp-action="/Restaurants/Create">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group mx-auto w-50">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="FullName" class="text-dark font-weight-bold">Full Name</label>
+                </div>
+                <input asp-for="FullName" type="text" class="form-control" id="full-name" placeholder="Full Name">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-50">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Company" class="text-dark font-weight-bold">Company</label>
+                </div>
+                <input asp-for="Company" type="text" class="form-control" id="company" placeholder="Company">
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-50">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="Location" class="text-dark font-weight-bold">Location</label>
+                </div>
+                <input asp-for="Location" type="text" class="form-control rounded" id="location" placeholder="Location">
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-50">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="PhoneNumber" type="text" class="text-dark font-weight-bold">Phone Number</label>
+                </div>
+                <input asp-for="PhoneNumber" class="form-control rounded" id="phone-number" placeholder="Phone Number">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mx-auto w-50">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="VatNumber" type="text" class="text-dark font-weight-bold">VAT Number</label>
+                </div>
+                <input asp-for="VatNumber" class="form-control rounded" id="vat-number" placeholder="VAT Number">
+                <span asp-validation-for="VatNumber" class="text-danger"></span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-dark font-weight-bold mb-3">Send Request</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <h2 class="text-center text-dark">You must be <a class="text-info" href="/Identity/Account/Login">Logged in</a> or <a class="text-info" href="/Identity/Account/Register">Register</a> if u don't have an account!</h2>
+    }
 </div>
 
-
-@*<script>
-        window.onload = () => {
-            $('#manufacturedOn').datetimepicker({
-                format: 'd.m.Y H:i',
-                lang: 'en'
-            });
-        };
-    </script>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -5,6 +5,7 @@ using JuicyBurger.Data.Models;
 using JuicyBurger.Service;
 using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Cloud;
+using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Services.Orders;
@@ -55,6 +56,7 @@ namespace JuicyBurger.Web
                 .AddDefaultTokenProviders();
 
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IIngredientsService, IngredientsService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IReceiptService, ReceiptService>();
             services.AddTransient<IRestaurantsService, RestaurantsService>();
@@ -96,11 +98,13 @@ namespace JuicyBurger.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // AutoMapper configuration.
             AutoMapperConfig.RegisterMappings(
               typeof(Product).GetTypeInfo().Assembly,
               typeof(ProductsCreateInputModel).GetTypeInfo().Assembly,
               typeof(ProductViewModel).GetTypeInfo().Assembly,
               typeof(ProductServiceModel).GetTypeInfo().Assembly);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -112,9 +116,6 @@ namespace JuicyBurger.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-          
-
 
             //The code below, fix floating point issue for double/decimal form field.
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;

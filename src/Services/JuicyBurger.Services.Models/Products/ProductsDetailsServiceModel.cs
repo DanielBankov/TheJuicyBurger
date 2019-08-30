@@ -1,5 +1,7 @@
 ﻿using JuicyBurger.Data.Models;
 using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Ingredients;
+using System.Collections.Generic;
 
 namespace JuicyBurger.Services.Models.Products
 {
@@ -25,8 +27,8 @@ namespace JuicyBurger.Services.Models.Products
 
         public int ProductTypeId { get; set; }
 
-        public string ProductType { get; set; }//
+        public string ProductType { get; set; }
 
-        public string ProductIngredients { get; set; }
+        public List<IngredientServiceModel> Ingredients { get; set; }
     }
 }

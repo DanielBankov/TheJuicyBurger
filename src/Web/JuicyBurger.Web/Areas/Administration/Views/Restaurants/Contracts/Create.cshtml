@@ -1,0 +1,60 @@
+﻿@model JuicyBurger.Web.InputModels.Restaurants.RestaurantContractCreateInputModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container shadow mt-1 p-5">
+    <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Register Company Partner</h2>
+    <hr />
+    <form method="post" asp-action="/Administration/Restaurants/Contracts/Create">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group mx-auto w-50">
+            <div class="d-flex justify-content-center">
+                <label asp-for="IssuedOn" class="text-dark font-weight-bold">Issued On</label>
+            </div>
+            <input asp-for="IssuedOn" type="date" class="form-control" id="issued-on" placeholder="Issued On">
+            <span asp-validation-for="IssuedOn" class="text-danger"></span>
+        </div>
+        <div class="form-group mx-auto w-50">
+            <div class="d-flex justify-content-center">
+                <label asp-for="ExpiresOn" class="text-dark font-weight-bold">Expires On</label>
+            </div>
+            <input asp-for="ExpiresOn" type="date" class="form-control" id="expires-on" placeholder="Expires On">
+            <span asp-validation-for="ExpiresOn" class="text-danger"></span>
+        </div>
+        <div class="form-group mx-auto w-50">
+            <div class="d-flex justify-content-center">
+                <label asp-for="PricePerMonth" class="text-dark font-weight-bold">Price</label>
+            </div>
+            <input asp-for="PricePerMonth" type="number" class="form-control" id="price-per-month" placeholder="Price Per Month">
+            <span asp-validation-for="PricePerMonth" class="text-danger"></span>
+        </div>
+        <div class="form-group mx-auto w-50">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Conditions" class="text-dark font-weight-bold">Conditions</label>
+            </div>
+            <textarea asp-for="Conditions" type="text" class="form-control rounded" id="conditions" placeholder="Conditions"></textarea>
+            <span asp-validation-for="Conditions" class="text-danger"></span>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-dark font-weight-bold mb-3">Confirm</button>
+        </div>
+    </form>
+</div>
+
+@*<script>
+        window.onload = () => {
+            $('#issued-on').datetimepicker({
+                format: 'd.m.Y H:i',
+                lang: 'en'
+            });
+        };
+    </script>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
