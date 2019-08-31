@@ -60,18 +60,18 @@ namespace JuicyBurger.Services.Ingredients
 
         public List<IngredientServiceModel> MapIngNamesToIngredientServiceModel(ProductsCreateInputServiceModel serviceModel)
         {
-            List<IngredientServiceModel> inList = new List<IngredientServiceModel>();
+            List<IngredientServiceModel> ingredientsts = new List<IngredientServiceModel>();
 
             for (int i = 0; i < serviceModel.Ingredients.Count; i++)
             {
                 var ing = new IngredientServiceModel { Name = serviceModel.Ingredients[i] };
-                inList.Add(ing);
+                ingredientsts.Add(ing);
             }
 
-            return inList;
+            return ingredientsts;
         }
 
-        public string SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients)
+        public bool SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients)
         {
             List<string> allIngredientsNames = new List<string>();
             allIngredientsNames = ingredients.Select(ingredient => ingredient.Name).ToList();
@@ -93,11 +93,9 @@ namespace JuicyBurger.Services.Ingredients
                 this.context.ProductIngredients.Add(productIngredient);
             }
 
-            this.context.SaveChanges();
+            var result = this.context.SaveChanges();
 
-            var productId = this.context.Products.SingleOrDefault(prod => prod.Name == product.Name).Id;
-
-            return productId;
+            return result > 0;
         }
 
         private void SetIngredientMacronutrientsToProduct(Product product, List<Ingredient> ingredientsDb)

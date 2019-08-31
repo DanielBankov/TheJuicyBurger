@@ -32,17 +32,9 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
         public IActionResult Create()
         {
-            var allProductTypes = this.productsServices.GetAllTypes();
-            this.ViewData["productTypes"] = allProductTypes.Select(productType => new ProductTypeViewModel
-            {
-                Name = productType.Name
-            });
+            SetProductTypeViewData();
 
-            var allIngredients = this.ingredientsServices.GetAll();
-            this.ViewData["ingredients"] = allIngredients.Select(ingredient => new IngredientsAllCreateViewModel
-            {
-                Name = ingredient.Name
-            });
+            SetIngredientsViewData();
 
             return this.View();
         }
@@ -50,6 +42,15 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult Create(ProductsCreateInputModel serviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                SetProductTypeViewData();
+
+                SetIngredientsViewData();
+
+                return this.View(serviceModel);
+            }
+
             string imageUrl = this.cloudinaryServices.UploadeImage(serviceModel.Image, serviceModel.Name);
 
             var productType = this.productsServices.GetAllTypes().FirstOrDefault(pt => pt.Name == serviceModel.ProductType);
@@ -69,9 +70,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
                 Image = imageUrl
             };
 
-            //try catch
-
-            string productId = this.productsServices.Create(product);
+            this.productsServices.Create(product);
 
             return this.Redirect("/"); //redirect ot products all
         }
@@ -87,6 +86,11 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         [HttpPost("/Administration/Products/Type/Create")]
         public IActionResult CreateType(ProductTypesCreateInputModel serviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(serviceModel);
+            }
+
             ProductTypeServiceModel product = new ProductTypeServiceModel
             {
                 Name = serviceModel.Name,
@@ -94,8 +98,25 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             this.productsServices.CreateType(product);
 
-            return this.View("Product/Create");
+            return this.Redirect("/Administration/Products/Create");
         }
 
+        private void SetIngredientsViewData()
+        {
+            var allIngredients = this.ingredientsServices.GetAll();
+            this.ViewData["ingredients"] = allIngredients.Select(ingredient => new IngredientsAllCreateViewModel
+            {
+                Name = ingredient.Name
+            });
+        }
+
+        private void SetProductTypeViewData()
+        {
+            var allProductTypes = this.productsServices.GetAllTypes();
+            this.ViewData["productTypes"] = allProductTypes.Select(productType => new ProductTypeViewModel
+            {
+                Name = productType.Name
+            });
+        }
     }
 }

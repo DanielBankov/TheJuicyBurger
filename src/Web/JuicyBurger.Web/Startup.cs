@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CloudinaryDotNet;
+﻿using CloudinaryDotNet;
 using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Service;
@@ -61,7 +60,6 @@ namespace JuicyBurger.Web
             services.AddTransient<IReceiptService, ReceiptService>();
             services.AddTransient<IRestaurantsService, RestaurantsService>();
             services.AddSingleton<ICloudinaryService, CloudinaryService>();
-
 
             services.Configure<IdentityOptions>(options =>
             {

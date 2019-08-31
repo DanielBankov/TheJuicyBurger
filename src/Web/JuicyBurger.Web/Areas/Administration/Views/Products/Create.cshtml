@@ -56,23 +56,9 @@
             <span asp-validation-for="ProductType" class="text-danger"></span>
         </div>
 
-        <!-- Select Ingredient -->
-        @*<div class="form-group mx-auto w-25 mt-4">
-                <div class="d-flex justify-content-center">
-                    <label asp-for="Ingredients" class="text-dark font-weight-bold h6">Product Type</label>
-                </div>
-                <select class="form-control text-dark" id="type" asp-for="ProductType" multiple>
-                    @foreach (var type in (IEnumerable<IngredientsAllCreateViewModel>)this.ViewData["ingredients"])
-                    {
-                        <option value="@type.Name">@type.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="ProductType" class="text-danger"></span>
-            </div>*@
-
         <div class="form-group mx-auto w-25 mt-4">
             <div class="d-flex justify-content-center">
-                <label asp-for="Ingredients" class="text-dark font-weight-bold h6">Product Type</label>
+                <label asp-for="Ingredients" class="text-dark font-weight-bold h6">Ingredients</label>
             </div>
             <select asp-for="Ingredients" class="selectpicker" multiple data-live-search="true">
                 @foreach (var type in (IEnumerable<IngredientsAllCreateViewModel>)this.ViewData["ingredients"])
@@ -80,26 +66,8 @@
                     <option value="@type.Name">@type.Name</option>
                 }
             </select>
+            <span asp-validation-for="Ingredients" class="text-danger"></span>
         </div>
-
-        @*<div class="form-group mx-auto w-25 text-center">
-                <br />
-                <button type="button" class="btn btn-default border btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-cog"></span> dell thous spans
-                    <span class="caret"></span>
-                    <h5 class="text-dark h6 font-weight-bold">Select Ingredients</h5>
-                </button>
-                <ul class="dropdown-menu">
-                    @foreach (var type in (IEnumerable<IngredientsAllCreateViewModel>)this.ViewData["ingredients"])
-                    {
-                        <li>
-                            <a href="#" class="big" data-value="@type.Name" tabIndex="-1">
-                                <input type="checkbox" />&nbsp;@type.Name
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>*@
 
         <!-- Upload Image -->
         <div class="form-group mx-auto w-25 mt-4">

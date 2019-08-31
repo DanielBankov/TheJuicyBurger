@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using JuicyBurger.Services.Models.Restaurants;
+﻿using JuicyBurger.Services.Models.Restaurants;
 using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.InputModels.Restaurants;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -21,13 +17,13 @@ namespace JuicyBurger.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]

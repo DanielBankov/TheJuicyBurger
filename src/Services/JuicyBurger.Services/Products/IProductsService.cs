@@ -1,6 +1,5 @@
 ﻿using JuicyBurger.Services.Models.Products;
 using System.Linq;
-using System.Text;
 
 namespace JuicyBurger.Service.Products
 {
@@ -12,7 +11,7 @@ namespace JuicyBurger.Service.Products
 
         ProductsDetailsServiceModel Details(string id);
 
-        string Create(ProductServiceModel inputModel);
+        bool Create(ProductServiceModel inputModel);
 
         bool CreateType(ProductTypeServiceModel inputModel);
 

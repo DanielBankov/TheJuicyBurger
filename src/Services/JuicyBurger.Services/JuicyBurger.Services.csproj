@@ -12,6 +12,7 @@
     <ProjectReference Include="..\..\Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\JuicyBurger.Data\JuicyBurger.Data.csproj" />
     <ProjectReference Include="..\JuicyBurger.Services.Models\JuicyBurger.Services.Models.csproj" />
+    <ProjectReference Include="..\Services.Exceptions\Services.Exceptions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

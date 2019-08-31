@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\JuicyBurger.Services.Models\JuicyBurger.Services.Models.csproj" />
+    <ProjectReference Include="..\..\Services\JuicyBurger.Services\JuicyBurger.Services.csproj" />
     <ProjectReference Include="..\JuicyBurger.Web.ViewModels\JuicyBurger.Web.ViewModels.csproj" />
   </ItemGroup>
 

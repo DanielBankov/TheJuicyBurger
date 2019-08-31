@@ -1,8 +1,10 @@
 ﻿using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Mapping;
+using JuicyBurger.Services.Models.Orders;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Web.ViewModels.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
@@ -22,22 +24,24 @@ namespace JuicyBurger.Web.Controllers
             this.ordersService = OrdersService;
         }
 
+        [Authorize]
         [HttpGet("/Products/All/{id}")]
         public IActionResult All(int id)
         {
             GetAllProductTypes();
 
-            var products = productsService.All(id)
+            var products = this.productsService.All(id)
                 .Select(prod => prod.To<ProductViewModel>())
                 .ToList();
 
-            return View(products);
+            return this.View(products);
         }
 
+        [Authorize]
         [Route("/Products/Details/{id}")]
         public IActionResult Details(string id)
         {
-            var serviceModel = productsService.Details(id);
+            var serviceModel = this.productsService.Details(id);
 
             var viewModel = AutoMapper.Mapper.Map<ProductsDetailsViewModel>(serviceModel);
 
@@ -45,23 +49,36 @@ namespace JuicyBurger.Web.Controllers
 
             this.ViewData["ingredientsName"] = ingNames;
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Search(string searchString)
         {
             GetAllProductTypes();
 
-            var searchedProducts = productsService.Search(searchString)
+            var searchedProducts = this.productsService.Search(searchString)
                 .Select(product => product.To<ProductViewModel>())
                 .ToList();
 
-            return View("All", searchedProducts);
+            return this.View("All", searchedProducts);
+        }
+
+        [HttpPost(Name = "Order")]
+        public IActionResult Order(ProductOrderInputModel inputModel)
+        {
+            OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
+
+            orderServiceModel.IssuerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            this.ordersService.Create(orderServiceModel);
+
+            //retur to cart
+            return this.Redirect("/");
         }
 
         private void GetAllProductTypes()
-            {
+        {
             var allProductTypes = this.productsService.GetAllTypes();
 
             this.ViewData["productTypesMenu"] = allProductTypes.Select(productType => new ProductTypeViewModel
@@ -70,20 +87,7 @@ namespace JuicyBurger.Web.Controllers
                 Name = productType.Name
             });
 
-            this.ViewData["productTypeAllProductsIndex"] = allProductTypes.SingleOrDefault().Id;
-
             //validate if productTypes are null
-        }
-
-        [HttpPost(Name = "Order")]
-        public IActionResult Order(string id, string comment)
-        {
-            var issuer = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var order = ordersService.Create(id, comment, issuer);
-
-
-            //retur to cart
-            return this.Redirect("/");
         }
     }
 }

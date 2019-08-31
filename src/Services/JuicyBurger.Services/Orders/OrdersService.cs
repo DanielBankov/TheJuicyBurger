@@ -34,23 +34,22 @@ namespace JuicyBurger.Services.Orders
             return result > 0;
         }
 
-        public bool Create(string id, string comment, string issuer)
+        public bool Create(OrderServiceModel orderService)
         {
-            //TODO: add comment 
-
             var issuedOn = DateTime.UtcNow;
 
-            var order = new Order
-            {
-                Quantity = 1,
-                IssuedOn = issuedOn,
-                IssuerId = issuer,
-                ProductId = id
-            };
+            Order order = orderService.To<Order>();
+            //var order = new Order
+            //{
+            //    Quantity = 1,
+            //    IssuedOn = issuedOn,
+            //    IssuerId = issuer,
+            //    ProductId = id
+            //};
 
-            order.OrderStatus = context.OrderStatuses.SingleOrDefault(os => os.Name == "Active");
+            order.OrderStatus = this.context.OrderStatuses.SingleOrDefault(os => os.Name == "Active");
 
-            context.Orders.Add(order);
+            this.context.Orders.Add(order);
             var result = context.SaveChanges();
 
             return result > 0;
@@ -63,7 +62,7 @@ namespace JuicyBurger.Services.Orders
 
         public void SetOrdersToReceipt(Receipt receipt)
         {
-            var orders = context.Orders
+            var orders = this.context.Orders
                 .Where(order => order.IssuerId == receipt.RecipientId && order.OrderStatus.Name == "Active")
                 .ToList();
 

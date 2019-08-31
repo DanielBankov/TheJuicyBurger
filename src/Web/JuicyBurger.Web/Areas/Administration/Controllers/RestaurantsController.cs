@@ -19,7 +19,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         public IActionResult Requests()
@@ -28,7 +28,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
                 .To<RestaurantsRequestViewModel>()
                 .ToList();
 
-            return View(restaurantRequests);
+            return this.View(restaurantRequests);
         }
 
         public IActionResult Delete(string id)
@@ -41,17 +41,22 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         [HttpGet("/Administration/Restaurants/Contracts/Create/{id}")]
         public IActionResult Create()
         {
-            return View("Contracts/Create");
+            return this.View("Contracts/Create");
         }
 
         [HttpPost("/Administration/Restaurants/Contracts/Create/{id}")]
         public IActionResult Create(RestaurantContractCreateInputModel inputModel, string id)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.Redirect("/Administration/Restaurants/Contracts/Create/{id}");
+            }
+
             var restaurantContract = AutoMapper.Mapper.Map<RestaurantContractServiceModel>(inputModel);
             restaurantContract.RestaurantId = id;
             this.restaurantServices.CreateContract(restaurantContract);
 
-            return this.View("Restaurants/Requests"); 
+            return this.View("/Administration/Restaurants/Contracts"); 
         }
     }
 }

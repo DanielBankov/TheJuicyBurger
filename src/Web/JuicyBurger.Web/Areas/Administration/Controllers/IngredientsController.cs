@@ -17,16 +17,21 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
         public IActionResult Create(IngredientsCreateInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             var ingredient = AutoMapper.Mapper.Map<IngredientServiceModel>(inputModel);
             this.ingredientsService.Create(ingredient);
 
-            return Redirect("/"); // redirect to ingredients all
+            return this.Redirect("/"); // redirect to ingredients all
         }
     }
 }

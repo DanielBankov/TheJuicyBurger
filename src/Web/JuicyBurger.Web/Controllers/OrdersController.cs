@@ -8,6 +8,7 @@ using JuicyBurger.Services.Models.Orders;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Orders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JuicyBurger.Web.Controllers
@@ -23,6 +24,7 @@ namespace JuicyBurger.Web.Controllers
             this.receiptService = receiptService;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Cart()
         {
@@ -32,9 +34,10 @@ namespace JuicyBurger.Web.Controllers
                 .To<OrderCartViewModel>()
                 .ToList();
 
-            return View(orders);
+            return this.View(orders);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Complete()
         {

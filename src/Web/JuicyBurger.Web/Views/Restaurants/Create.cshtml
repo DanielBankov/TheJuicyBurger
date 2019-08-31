@@ -6,9 +6,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container shadow mt-1 p-5">
-    @if (this.User.Identity.IsAuthenticated)
-    {
+@if (this.User.Identity.IsAuthenticated)
+{
+    <div class="container shadow mt-1 p-5">
         <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Request Company Partner</h2>
         <hr />
         <form method="post" asp-action="/Restaurants/Create">
@@ -53,12 +53,13 @@
                 <button class="btn btn-dark font-weight-bold mb-3">Send Request</button>
             </div>
         </form>
-    }
-    else
-    {
-        <h2 class="text-center text-dark">You must be <a class="text-info" href="/Identity/Account/Login">Logged in</a> or <a class="text-info" href="/Identity/Account/Register">Register</a> if u don't have an account!</h2>
-    }
-</div>
+    </div>
+}
+else
+{
+    <partial name="_LogInOrRegisterBeforeAction" />
+}
+
 
 
 @section Scripts {

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using JuicyBurger.Services.Mapping;
-using JuicyBurger.Services.Models.Receipts;
+﻿using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Receipt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -20,12 +17,13 @@ namespace JuicyBurger.Web.Controllers
             this.receiptsService = receiptsService;
         }
 
-
+        [Authorize]
         public IActionResult Index()
         {
             return this.View();
         }
 
+        [Authorize]
         public IActionResult Details(string id)
         {
             var receiptServiceModel = this.receiptsService.GetAll()
@@ -38,6 +36,7 @@ namespace JuicyBurger.Web.Controllers
             return this.View(receiptViewModel);
         }
 
+        [Authorize]
         public IActionResult All()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

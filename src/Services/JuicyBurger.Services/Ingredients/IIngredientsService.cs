@@ -14,7 +14,7 @@ namespace JuicyBurger.Services.Ingredients
 
         List<string> GetAllIds(Product product);
 
-        string SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients);
+        bool SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients);
 
         string IngredientsStringNames(List<string> ingredientsIds);
 

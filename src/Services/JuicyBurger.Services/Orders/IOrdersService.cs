@@ -8,7 +8,7 @@ namespace JuicyBurger.Services.Orders
     {
         bool CompleteOrder(string orderId);
 
-        bool Create(string id, string comment, string issuer);
+        bool Create(OrderServiceModel serviceModel);
 
         IQueryable<OrderServiceModel> GetAll();
 

@@ -8,6 +8,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System;
+using Services.Exceptions;
+using Services.Exceptions.Messages;
 
 namespace JuicyBurger.Service
 {
@@ -27,22 +29,15 @@ namespace JuicyBurger.Service
             return this.context.Products.Where(product => product.ProductTypeId == id).To<ProductServiceModel>();
         }
 
-        public string Create(ProductServiceModel inputModel)
+        public bool Create(ProductServiceModel inputModel)
         {
             ProductType productTypeDb = context.ProductTypes
-                .SingleOrDefault(type => type.Name == inputModel.ProductType.Name);
-
-            var IsProductExists = this.context.Products.Any(prod => prod.Name == inputModel.Name);
-
-            if (IsProductExists)
-            {
-                throw new InvalidOperationException("Product with this name already exists!");
-            }
+                    .SingleOrDefault(type => type.Name == inputModel.ProductType.Name);
 
             var product = AutoMapper.Mapper.Map<Product>(inputModel);
 
-            var productId = ingredientsService.SetIngredientsToProduct(product, inputModel.Ingredients);
-            return productId;
+            var result = ingredientsService.SetIngredientsToProduct(product, inputModel.Ingredients);
+            return result;
         }
 
         public bool CreateType(ProductTypeServiceModel inputModel)

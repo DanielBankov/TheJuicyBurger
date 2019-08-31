@@ -17,8 +17,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\JuicyBurger.Data.Models\JuicyBurger.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Data\JuicyBurger.Data\JuicyBurger.Data.csproj" />
     <ProjectReference Include="..\..\Services\JuicyBurger.Services.Mapping\JuicyBurger.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\JuicyBurger.Services\JuicyBurger.Services.csproj" />
     <ProjectReference Include="..\JuicyBurger.Web.InputModels\JuicyBurger.Web.InputModels.csproj" />
