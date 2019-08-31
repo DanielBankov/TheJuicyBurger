@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
-using JuicyBurger.Services.Models.Orders;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -29,7 +27,7 @@ namespace JuicyBurger.Web.Controllers
         public IActionResult Cart()
         {
             List<OrderCartViewModel> orders = this.ordersService.GetAll()
-                .Where(order => order.OrderStatus.Name == "Active"
+                .Where(order => order.OrderStatus.Name == ServicesGlobalConstants.OrderStatusActive
                              && order.IssuerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 .To<OrderCartViewModel>()
                 .ToList();
@@ -45,7 +43,7 @@ namespace JuicyBurger.Web.Controllers
 
             string receiptId = this.receiptService.Create(recipientId);
 
-            return this.Redirect($"/Receipts/Details/{receiptId}");
+            return this.Redirect(ServicesGlobalConstants.RedirectReceiptsDetails + receiptId);
         }
     }
 }

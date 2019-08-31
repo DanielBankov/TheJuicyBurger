@@ -1,4 +1,5 @@
-﻿using JuicyBurger.Services.Ingredients;
+﻿using JuicyBurger.Services.GlobalConstants;
+using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Web.InputModels.Ingredients;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             var ingredient = AutoMapper.Mapper.Map<IngredientServiceModel>(inputModel);
             this.ingredientsService.Create(ingredient);
 
-            return this.Redirect("/"); // redirect to ingredients all
+            return this.Redirect(ServicesGlobalConstants.HomeIndex); // redirect to ingredients all
         }
     }
 }

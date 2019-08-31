@@ -1,4 +1,5 @@
-﻿@model List<JuicyBurger.Web.ViewModels.Receipt.ReceiptAllViewModel>
+﻿@using  JuicyBurger.Services.GlobalConstants
+@model List<JuicyBurger.Web.ViewModels.Receipt.ReceiptAllViewModel>
 
 @{
     ViewData["Title"] = "Details";
@@ -28,8 +29,8 @@
                         <tr class="text-center">
                             <th scope="row">@(i + 1)</th>
                             <td>@Model[i].Id</td>
-                            <td>@Model[i].IssuedOn.ToString("dd/MM/yyyy")</td>
-                            <td>@Model[i].ProductsQty.ToString("F2")</td>
+                            <td>@Model[i].IssuedOn.ToString(ServicesGlobalConstants.DateTimeFormat)</td>
+                            <td>@Model[i].ProductsQty.ToString(ServicesGlobalConstants.PriceRouting)</td>
                             <td>&#36;@Model[i].Total</td>
                             <td>
                                 <a href="/Receipts/Details/@Model[i].Id" class="btn btn-dark font-weight-bold">Details</a>
@@ -40,7 +41,6 @@
             </table>
         </div>
     </div>
-
 }
 else
 {

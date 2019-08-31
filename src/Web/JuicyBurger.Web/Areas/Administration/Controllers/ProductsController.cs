@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Cloud;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Services.Models.Products;
@@ -72,18 +73,18 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             this.productsServices.Create(product);
 
-            return this.Redirect("/"); //redirect ot products all
+            return this.Redirect(ServicesGlobalConstants.HomeIndex); //redirect ot products all
         }
 
-        [HttpGet("/Administration/Products/Type/Create")]
+        [HttpGet(ServicesGlobalConstants.TypeCreateRoute)]
         public IActionResult CreateType()
         {
             this.productsServices.GetAllTypes();
 
-            return this.View("Type/Create");
+            return this.View(ServicesGlobalConstants.ReturnTypeCreateView);
         }
 
-        [HttpPost("/Administration/Products/Type/Create")]
+        [HttpPost(ServicesGlobalConstants.TypeCreateRoute)]
         public IActionResult CreateType(ProductTypesCreateInputModel serviceModel)
         {
             if (!ModelState.IsValid)
@@ -98,13 +99,13 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             this.productsServices.CreateType(product);
 
-            return this.Redirect("/Administration/Products/Create");
+            return this.Redirect(ServicesGlobalConstants.RedirectProductCreate);
         }
 
         private void SetIngredientsViewData()
         {
             var allIngredients = this.ingredientsServices.GetAll();
-            this.ViewData["ingredients"] = allIngredients.Select(ingredient => new IngredientsAllCreateViewModel
+            this.ViewData[ServicesGlobalConstants.IngredientsViewData] = allIngredients.Select(ingredient => new IngredientsAllCreateViewModel
             {
                 Name = ingredient.Name
             });
@@ -113,7 +114,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         private void SetProductTypeViewData()
         {
             var allProductTypes = this.productsServices.GetAllTypes();
-            this.ViewData["productTypes"] = allProductTypes.Select(productType => new ProductTypeViewModel
+            this.ViewData[ServicesGlobalConstants.ProductTypeViewData] = allProductTypes.Select(productType => new ProductTypeViewModel
             {
                 Name = productType.Name
             });

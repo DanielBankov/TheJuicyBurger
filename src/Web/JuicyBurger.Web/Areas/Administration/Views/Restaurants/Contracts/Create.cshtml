@@ -46,15 +46,6 @@
     </form>
 </div>
 
-@*<script>
-        window.onload = () => {
-            $('#issued-on').datetimepicker({
-                format: 'd.m.Y H:i',
-                lang: 'en'
-            });
-        };
-    </script>*@
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

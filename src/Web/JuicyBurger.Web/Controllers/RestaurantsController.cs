@@ -1,4 +1,5 @@
-﻿using JuicyBurger.Services.Models.Restaurants;
+﻿using JuicyBurger.Services.GlobalConstants;
+using JuicyBurger.Services.Models.Restaurants;
 using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.InputModels.Restaurants;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace JuicyBurger.Web.Controllers
             var restaurant = AutoMapper.Mapper.Map<RestaurantsServiceModel>(inputModel);
             this.restaurantServices.CreatePartnerRequest(restaurant, contractorId);
 
-            return this.Redirect("/");
+            return this.Redirect(ServicesGlobalConstants.HomeIndex);
         }
     }
 }

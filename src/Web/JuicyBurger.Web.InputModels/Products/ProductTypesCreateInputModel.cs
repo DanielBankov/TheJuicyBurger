@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JuicyBurger.Services.GlobalConstants;
+using System.ComponentModel.DataAnnotations;
 
 namespace JuicyBurger.Web.InputModels.Products
 {
@@ -7,7 +8,7 @@ namespace JuicyBurger.Web.InputModels.Products
         public int Id { get; set; }
 
         [Required]
-        [StringLength(150, MinimumLength = 3, ErrorMessage = "Name must contains at least 3 symbols and max 150!")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = ServicesGlobalConstants.ModelNameErrorMessage)]
         public string Name { get; set; }
     }
 }

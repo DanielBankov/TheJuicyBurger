@@ -1,4 +1,5 @@
-﻿@using JuicyBurger.Web.ViewModels.Products
+﻿@using JuicyBurger.Services.GlobalConstants
+@using JuicyBurger.Web.ViewModels.Products
 @model List<ProductViewModel>
 
 @{
@@ -14,9 +15,7 @@
     </h1>
 
     <div class="row">
-        <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
-
             <!-- Search Widget -->
             <div class="card mb-4">
                 <h5 class="card-header main-content-icons-text bg-dark text-white">SEARCH</h5>
@@ -31,14 +30,13 @@
                     </form>
                 </div>
             </div>
-
             <!-- Categories Widget -->
             <div class="card my-4">
                 <h5 class="card-header main-content-icons-text bg-dark text-white">MENU</h5>
                 <div class="card-body ">
                     <div>
                         <ul class="list-group">
-                            @foreach (var types in (IEnumerable<ProductTypeViewModel>)this.ViewData["productTypesMenu"])
+                            @foreach (var types in (IEnumerable<ProductTypeViewModel>)this.ViewData[ServicesGlobalConstants.ProductTypesMenuViewData])
                             {
                                 <li class="mb-1">
                                     <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/All/@types.Id">@types.Name</a>
@@ -48,7 +46,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Side Widget -->
             <div class="card my-4">
                 <h5 class="card-header bg-dark text-white">Side Widget</h5>
@@ -57,8 +54,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Blog Entries Column -->
         <div class="product-card col-md-8">
             <!-- Blog Post -->
             @foreach (var products in Model)
@@ -67,7 +62,7 @@
                     <img class="card-img-top" src="@products.Image" alt="Card image cap">
                     <div class="card-body">
                         <h2 class="product-name main-content-icons-text">@products.Name</h2>
-                        <h3 class="card-title main-content-icons-text">&#36; @products.Price.ToString("F2")</h3>
+                        <h3 class="card-title main-content-icons-text">&#36; @products.Price.ToString(ServicesGlobalConstants.PriceRouting)</h3>
                         <p class="card-text card-title main-content-icons-text">@products.Description</p>
                         <a href="/Products/Details/@products.Id" class="btn main-content-icons-text btn-dark">Details &rarr;</a>
                     </div>
@@ -76,7 +71,6 @@
                     </div>
                 </div>
             }
-
             <!-- Pagination -->
             <ul class="pagination justify-content-center mb-5">
                 <li class="page-item">
@@ -89,19 +83,3 @@
         </div>
     </div>
 </div>
-
-@*<script>
-        $('#search-bar').on("change paste keyup", function () {
-            $('.product-card').show();
-
-            let searchValue = $('#search-bar').val();
-
-            for (let elem of $('.product-card')) {
-                let productName = $($(elem).children()[1]).text();
-
-                if (!productName.toLowerCase().includes(searchValue.toLowerCase())) {
-                    $(elem).hide();
-                }
-            }
-        });
-    </script>*@

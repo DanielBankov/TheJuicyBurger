@@ -1,4 +1,5 @@
 ﻿using JuicyBurger.Service.Products;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
@@ -25,7 +26,7 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        [HttpGet("/Products/All/{id}")]
+        [HttpGet(ServicesGlobalConstants.HttpProductsAllId)]
         public IActionResult All(int id)
         {
             GetAllProductTypes();
@@ -38,7 +39,7 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        [Route("/Products/Details/{id}")]
+        [Route(ServicesGlobalConstants.HttpProductsDetailsId)]
         public IActionResult Details(string id)
         {
             var serviceModel = this.productsService.Details(id);
@@ -47,7 +48,7 @@ namespace JuicyBurger.Web.Controllers
 
             var ingNames = this.productsService.GetAllIngredientsName(serviceModel);
 
-            this.ViewData["ingredientsName"] = ingNames;
+            this.ViewData[ServicesGlobalConstants.IngredientsNameViewData] = ingNames;
 
             return this.View(viewModel);
         }
@@ -62,10 +63,10 @@ namespace JuicyBurger.Web.Controllers
                 .Select(product => product.To<ProductViewModel>())
                 .ToList();
 
-            return this.View("All", searchedProducts);
+            return this.View(ServicesGlobalConstants.ViewProductsAll, searchedProducts);
         }
 
-        [HttpPost(Name = "Order")]
+        //[HttpPost(Name = "Order")]
         public IActionResult Order(ProductOrderInputModel inputModel, string id)
         {
             OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
@@ -75,20 +76,19 @@ namespace JuicyBurger.Web.Controllers
             this.ordersService.Create(orderServiceModel);
 
             //retur to cart
-            return this.Redirect("/");
+            return this.Redirect(ServicesGlobalConstants.HomeIndex);
         }
 
         private void GetAllProductTypes()
         {
             var allProductTypes = this.productsService.GetAllTypes();
 
-            this.ViewData["productTypesMenu"] = allProductTypes.Select(productType => new ProductTypeViewModel
+            this.ViewData[ServicesGlobalConstants.ProductTypesMenuViewData] = allProductTypes
+                .Select(productType => new ProductTypeViewModel
             {
                 Id = productType.Id,
                 Name = productType.Name
             });
-
-            //validate if productTypes are null
         }
     }
 }

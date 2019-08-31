@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
 using System;
@@ -9,6 +10,10 @@ namespace JuicyBurger.Services.Orders
 {
     public class OrdersService : IOrdersService
     {
+        private readonly int num = ServicesGlobalConstants.ComparisonNumberForResultFromDbSaveChanges;
+        private const int orderQuantity = 1;
+
+
         private readonly JuicyBurgerDbContext context;
 
         public OrdersService(JuicyBurgerDbContext context)
@@ -22,15 +27,16 @@ namespace JuicyBurger.Services.Orders
 
             if (orderDb == null)
             {
-                throw new InvalidOperationException("No active orders!");
+                throw new InvalidOperationException(ServicesGlobalConstants.NoActiveOrdersExceptionMessage);
             }
 
-            orderDb.OrderStatus = this.context.OrderStatuses.SingleOrDefault(os => os.Name == "Finished");
+            orderDb.OrderStatus = this.context.OrderStatuses
+                .SingleOrDefault(orderStatus => orderStatus.Name == ServicesGlobalConstants.OrderStatusFinish);
 
             this.context.Orders.Update(orderDb);
             var result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         public bool Create(OrderServiceModel orderService)
@@ -46,15 +52,16 @@ namespace JuicyBurger.Services.Orders
             Order order = orderService.To<Order>();
 
             var issuedOn = DateTime.UtcNow;
-            order.Quantity = 1; ////////// CONST
+            order.Quantity = orderQuantity;
             order.IssuedOn = DateTime.UtcNow;
 
-            order.OrderStatus = this.context.OrderStatuses.SingleOrDefault(os => os.Name == "Active");
+            order.OrderStatus = this.context.OrderStatuses
+                .SingleOrDefault(os => os.Name == ServicesGlobalConstants.OrderStatusActive);
 
             this.context.Orders.Add(order);
-            var result = context.SaveChanges();
+            var result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         public IQueryable<OrderServiceModel> GetAll()
@@ -65,7 +72,8 @@ namespace JuicyBurger.Services.Orders
         public void SetOrdersToReceipt(Receipt receipt)
         {
             var orders = this.context.Orders
-                .Where(order => order.IssuerId == receipt.RecipientId && order.OrderStatus.Name == "Active")
+                .Where(order => order.IssuerId == receipt.RecipientId &&
+                                order.OrderStatus.Name == ServicesGlobalConstants.OrderStatusActive)
                 .ToList();
 
             receipt.Orders = orders;
@@ -75,7 +83,7 @@ namespace JuicyBurger.Services.Orders
         {
             var allOrders = GetAll().ToList();
             var ordaredOrder = new OrderServiceModel();
-            var result = 0;
+            var result = num;
 
             foreach (var currOrder in allOrders)
             {
@@ -83,16 +91,16 @@ namespace JuicyBurger.Services.Orders
                 {
                     ordaredOrder = currOrder;
 
-                    var orderAlreadyOrdered = context.Orders.SingleOrDefault(or => or.Id == ordaredOrder.Id);
+                    var orderAlreadyOrdered = this.context.Orders.SingleOrDefault(or => or.Id == ordaredOrder.Id);
                     orderAlreadyOrdered.Quantity++;
                     this.context.Orders.Update(orderAlreadyOrdered);
-                    result = context.SaveChanges();
+                    result = this.context.SaveChanges();
 
-                    return result > 0;
+                    return result > num;
                 }
             }
 
-            return result > 0;
+            return result > num;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Restaurants;
 using System;
@@ -9,6 +10,8 @@ namespace JuicyBurger.Services.Restaurants
 {
     public class RestaurantsService : IRestaurantsService
     {
+        private readonly int num = ServicesGlobalConstants.ComparisonNumberForResultFromDbSaveChanges;
+
         private readonly JuicyBurgerDbContext context;
 
         public RestaurantsService(JuicyBurgerDbContext context)
@@ -45,19 +48,19 @@ namespace JuicyBurger.Services.Restaurants
             Restaurant restaurant = GetRestaurantById(restaurantContract.Id);
             restaurant.IsContractActive = true;
 
-            var isContractExsited = context.RestaurantContracts.Any(ress => ress.Id == restaurantContract.Id);
+            var isContractExsited = this.context.RestaurantContracts.Any(ress => ress.Id == restaurantContract.Id);
             int result = int.MinValue;
 
             if (isContractExsited)
             {
                 this.context.RestaurantContracts.Update(restaurantContract);
                 result = this.context.SaveChanges();
-                return result > 0;
+                return result > num;
             }
 
             this.context.RestaurantContracts.Add(restaurantContract);
             result = this.context.SaveChanges();
-            return result > 0;
+            return result > num;
         }
 
         public bool CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId)
@@ -69,7 +72,7 @@ namespace JuicyBurger.Services.Restaurants
             this.context.Restaurants.Add(restaurant);
             int result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         public bool Delete(string id)
@@ -83,7 +86,7 @@ namespace JuicyBurger.Services.Restaurants
             this.context.Restaurants.Update(restorantDb);
             var result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         private Restaurant GetRestaurantById(string id)

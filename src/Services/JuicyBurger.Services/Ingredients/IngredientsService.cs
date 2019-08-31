@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Services.Models.Products;
@@ -11,6 +12,11 @@ namespace JuicyBurger.Services.Ingredients
 {
     public class IngredientsService : IIngredientsService
     {
+        private readonly int num = ServicesGlobalConstants.ComparisonNumberForResultFromDbSaveChanges;
+        private const string IngredientsSeparator = ", ";
+        private const int StartIndexAndCount = 1;
+        private const double For100Grams = 100;
+
         private readonly JuicyBurgerDbContext context;
 
         public IngredientsService(JuicyBurgerDbContext context)
@@ -25,7 +31,7 @@ namespace JuicyBurger.Services.Ingredients
             this.context.Ingredients.Add(ingredient);
             var result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         public IQueryable<IngredientServiceModel> GetAll()
@@ -48,12 +54,12 @@ namespace JuicyBurger.Services.Ingredients
             {
                 if (ingredientsIds.Contains(ingredients[i].Id))
                 {
-                    sb.Append($"{ingredients[i].Name}, ");
+                    sb.Append($"{ingredients[i].Name}{IngredientsSeparator}");
                 }
             }
 
             string ingredientsName = sb.ToString().TrimEnd();
-            string removeLastComma = ingredientsName.Remove(ingredientsName.Length - 1, 1);
+            ingredientsName.Remove(ingredientsName.Length - StartIndexAndCount, StartIndexAndCount);
 
             return ingredientsName;
         }
@@ -95,14 +101,14 @@ namespace JuicyBurger.Services.Ingredients
 
             var result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         private void SetIngredientMacronutrientsToProduct(Product product, List<Ingredient> ingredientsDb)
         {
-            product.Carbohydrates = ingredientsDb.Sum(ing => (ing.Carbohydrates / 100) * ing.Weight);
-            product.Proteins = ingredientsDb.Sum(ing => (ing.Proteins / 100) * ing.Weight);
-            product.Fat = ingredientsDb.Sum(ing => (ing.Fat / 100) * ing.Weight);
+            product.Carbohydrates = ingredientsDb.Sum(ing => (ing.Carbohydrates / For100Grams) * ing.Weight);
+            product.Proteins = ingredientsDb.Sum(ing => (ing.Proteins / For100Grams) * ing.Weight);
+            product.Fat = ingredientsDb.Sum(ing => (ing.Fat / For100Grams) * ing.Weight);
             product.TotalCalories = product.Carbohydrates + product.Proteins + product.Fat;
         }
     }

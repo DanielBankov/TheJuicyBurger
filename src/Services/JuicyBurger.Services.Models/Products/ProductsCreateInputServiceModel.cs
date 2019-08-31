@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using JuicyBurger.Data.Models;
+﻿using JuicyBurger.Data.Models;
 using JuicyBurger.Services.Mapping;
-using JuicyBurger.Services.Models.Ingredients;
 using System.Collections.Generic;
 
 namespace JuicyBurger.Services.Models.Products
@@ -23,15 +21,5 @@ namespace JuicyBurger.Services.Models.Products
         public ProductTypeServiceModel ProductType { get; set; }
 
         public List<string> Ingredients { get; set; }
-
-        //public void CreateMappings(IProfileExpression configuration)
-        //{
-        //    configuration
-        //     .CreateMap<ProductsCreateInputServiceModel, Product>()
-        //     .ForMember(destination => destination.ProductIngredients,
-        //                 opts => opts.Ignore())
-        //                 .ForMember(destination => destination.ProductType,
-        //                 opts => opts.Ignore());
-        //}
     }
 }

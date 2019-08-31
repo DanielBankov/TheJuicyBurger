@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using JuicyBurger.Services.Mapping;
+﻿using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
-using JuicyBurger.Services.Models.Receipts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JuicyBurger.Web.ViewModels.Receipt
 {

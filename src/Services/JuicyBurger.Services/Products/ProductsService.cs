@@ -1,20 +1,19 @@
 ﻿using JuicyBurger.Data;
 using JuicyBurger.Data.Models;
 using JuicyBurger.Service.Products;
+using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Products;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
-using System;
-using Services.Exceptions;
-using Services.Exceptions.Messages;
+using System.Linq;
 
 namespace JuicyBurger.Service
 {
     public class ProductsService : IProductsService
     {
+        private readonly int num = ServicesGlobalConstants.ComparisonNumberForResultFromDbSaveChanges;
+
         private readonly JuicyBurgerDbContext context;
         private readonly IIngredientsService ingredientsService;
 
@@ -31,12 +30,13 @@ namespace JuicyBurger.Service
 
         public bool Create(ProductServiceModel inputModel)
         {
-            ProductType productTypeDb = context.ProductTypes
+            ProductType productTypeDb = this.context.ProductTypes
                     .SingleOrDefault(type => type.Name == inputModel.ProductType.Name);
 
             var product = AutoMapper.Mapper.Map<Product>(inputModel);
 
             var result = ingredientsService.SetIngredientsToProduct(product, inputModel.Ingredients);
+
             return result;
         }
 
@@ -47,15 +47,15 @@ namespace JuicyBurger.Service
                 Name = inputModel.Name
             };
 
-            context.ProductTypes.Add(productType);
-            int result = context.SaveChanges();
+            this.context.ProductTypes.Add(productType);
+            int result = this.context.SaveChanges();
 
-            return result > 0;
+            return result > num;
         }
 
         public ProductsDetailsServiceModel Details(string id)
         {
-            Product dbProduct = context.Products.Where(product => product.Id == id).FirstOrDefault();
+            Product dbProduct = this.context.Products.Where(product => product.Id == id).FirstOrDefault();
 
             var serviceModel = AutoMapper.Mapper.Map<ProductsDetailsServiceModel>(dbProduct);
 
@@ -76,7 +76,7 @@ namespace JuicyBurger.Service
 
         public IQueryable<ProductTypeServiceModel> GetAllTypes()
         {
-            var result = context.ProductTypes
+            var result = this.context.ProductTypes
                 .Select(productType => new ProductTypeServiceModel
                 {
                     Id = productType.Id,
@@ -88,7 +88,7 @@ namespace JuicyBurger.Service
 
         public IQueryable<ProductServiceModel> Search(string searchString)
         {
-            return context.Products
+            return this.context.Products
                 .Where(product => product.Name.Contains(searchString))
                 .To<ProductServiceModel>();
         }

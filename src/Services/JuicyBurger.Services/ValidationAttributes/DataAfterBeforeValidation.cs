@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JuicyBurger.Services.GlobalConstants;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
@@ -6,6 +7,10 @@ namespace JuicyBurger.Services.ValidationAttributes
 {
     public class DataAfterBeforeValidation : ValidationAttribute
     {
+        private const string Invalid = "Invalid ";
+        private const string Before = " is before  ";
+        private const string Greather = " is greater than  ";
+
         private readonly string dateAfter;
 
         public DataAfterBeforeValidation(string dateAfter)
@@ -19,7 +24,7 @@ namespace JuicyBurger.Services.ValidationAttributes
 
             if (!(value is DateTime))
             {
-                return new ValidationResult("Invalid " + validationContext.DisplayName);
+                return new ValidationResult(Invalid + validationContext.DisplayName);
             }
 
             var startDateTimeValue = (DateTime)value;
@@ -28,14 +33,14 @@ namespace JuicyBurger.Services.ValidationAttributes
 
             if (startDateTimeValue.Date < currDate)
             {
-                return new ValidationResult(validationContext.DisplayName + " is before " + currDate
-                    .ToString("dd/MM/yyyy", CultureInfo.CurrentCulture));
+                return new ValidationResult(validationContext.DisplayName + Before + currDate
+                    .ToString(ServicesGlobalConstants.DateTimeFormat, CultureInfo.CurrentCulture));
             }
 
             if (startDateTimeValue.Date > endDateTimeValue)
             {
-                return new ValidationResult(validationContext.DisplayName + " is greater than " +
-                    endDateTimeValue.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture));
+                return new ValidationResult(validationContext.DisplayName + Greather +
+                    endDateTimeValue.ToString(ServicesGlobalConstants.DateTimeFormat, CultureInfo.CurrentCulture));
             }
 
             return ValidationResult.Success;

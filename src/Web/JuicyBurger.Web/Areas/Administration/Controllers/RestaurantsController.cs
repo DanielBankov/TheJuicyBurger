@@ -1,4 +1,5 @@
-﻿using JuicyBurger.Services.Mapping;
+﻿using JuicyBurger.Services.GlobalConstants;
+using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Restaurants;
 using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.InputModels.Restaurants;
@@ -35,28 +36,28 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         {
             this.restaurantServices.Delete(id);
 
-            return this.Redirect("/Administration/Restaurants/Requests");
+            return this.Redirect(ServicesGlobalConstants.RedirectRestaurantRequest);
         }
 
-        [HttpGet("/Administration/Restaurants/Contracts/Create/{id}")]
+        [HttpGet(ServicesGlobalConstants.HttpRestaurantsContractsCreateId)]
         public IActionResult Create()
         {
-            return this.View("Contracts/Create");
+            return this.View(ServicesGlobalConstants.ViewContractsCreate);
         }
 
-        [HttpPost("/Administration/Restaurants/Contracts/Create/{id}")]
+        [HttpPost(ServicesGlobalConstants.HttpRestaurantsContractsCreateId)]
         public IActionResult Create(RestaurantContractCreateInputModel inputModel, string id)
         {
             if (!ModelState.IsValid)
             {
-                return this.Redirect("/Administration/Restaurants/Contracts/Create/{id}");
+                return this.Redirect(ServicesGlobalConstants.HttpRestaurantsContractsCreateId);
             }
 
             var restaurantContract = AutoMapper.Mapper.Map<RestaurantContractServiceModel>(inputModel);
             restaurantContract.RestaurantId = id;
             this.restaurantServices.CreateContract(restaurantContract);
 
-            return this.View("/Administration/Restaurants/Contracts"); 
+            return this.View(ServicesGlobalConstants.ViewRestaurantsContracts); 
         }
     }
 }
