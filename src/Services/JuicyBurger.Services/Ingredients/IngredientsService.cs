@@ -5,6 +5,7 @@ using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Services.Models.Products;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace JuicyBurger.Services.Ingredients
 {
@@ -37,21 +38,40 @@ namespace JuicyBurger.Services.Ingredients
             return product.ProductIngredients.Select(IngId => IngId.IngredientId).ToList();
         }
 
-        //public List<IngredientServiceModel> MapIngNamesToIngredientServiceModel(ProductServiceModel serviceModel)
-        //{
-        //    ////var test = serviceModel.Ingredients.ToList();
-        //    //List<IngredientServiceModel> inList = new List<IngredientServiceModel>();
+        public string IngredientsStringNames(List<string> ingredientsIds)
+        {
+            StringBuilder sb = new StringBuilder();
 
-        //    //for (int i = 0; i < serviceModel.Ingredients.Count; i++)
-        //    //{
-        //    //    var ing = new IngredientServiceModel { Name = serviceModel.Ingredients[i] };
-        //    //    inList.Add(ing);
-        //    //}
+            var ingredients = GetAll().ToList();
 
-        //    //return inList;
-        //}
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                if (ingredientsIds.Contains(ingredients[i].Id))
+                {
+                    sb.Append($"{ingredients[i].Name}, ");
+                }
+            }
 
-        public bool SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients)
+            string ingredientsName = sb.ToString().TrimEnd();
+            string removeLastComma = ingredientsName.Remove(ingredientsName.Length - 1, 1);
+
+            return ingredientsName;
+        }
+
+        public List<IngredientServiceModel> MapIngNamesToIngredientServiceModel(ProductsCreateInputServiceModel serviceModel)
+        {
+            List<IngredientServiceModel> inList = new List<IngredientServiceModel>();
+
+            for (int i = 0; i < serviceModel.Ingredients.Count; i++)
+            {
+                var ing = new IngredientServiceModel { Name = serviceModel.Ingredients[i] };
+                inList.Add(ing);
+            }
+
+            return inList;
+        }
+
+        public string SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients)
         {
             List<string> allIngredientsNames = new List<string>();
             allIngredientsNames = ingredients.Select(ingredient => ingredient.Name).ToList();
@@ -73,8 +93,11 @@ namespace JuicyBurger.Services.Ingredients
                 this.context.ProductIngredients.Add(productIngredient);
             }
 
-            var result = this.context.SaveChanges();
-            return result > 0;
+            this.context.SaveChanges();
+
+            var productId = this.context.Products.SingleOrDefault(prod => prod.Name == product.Name).Id;
+
+            return productId;
         }
 
         private void SetIngredientMacronutrientsToProduct(Product product, List<Ingredient> ingredientsDb)

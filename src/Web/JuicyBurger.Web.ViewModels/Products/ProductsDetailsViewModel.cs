@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace JuicyBurger.Web.ViewModels.Products
 {
-    public class ProductsDetailsViewModel : IMapFrom<ProductServiceModel>
+    public class ProductsDetailsViewModel : IMapFrom<ProductsDetailsServiceModel>
     {
         public string Id { get; set; }
 

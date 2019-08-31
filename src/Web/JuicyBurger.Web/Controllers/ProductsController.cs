@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Service.Products;
 using JuicyBurger.Services.Ingredients;
+using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Orders;
 using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -26,39 +27,19 @@ namespace JuicyBurger.Web.Controllers
         {
             GetAllProductTypes();
 
-            //TODO: Map with AutoMapper
             var products = productsService.All(id)
-                .Select(product => new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    ProductTypeId = product.ProductTypeId,
-                    Price = product.Price,
-                    Image = product.Image
-                })
+                .Select(prod => prod.To<ProductViewModel>())
                 .ToList();
 
             return View(products);
         }
 
+        [Route("/Products/Details/{id}")]
         public IActionResult Details(string id)
         {
             var serviceModel = productsService.Details(id);
 
-            //TODO: Map with AutoMapper
-            var viewModel = new ProductsDetailsViewModel
-            {
-                Id = serviceModel.Id,
-                Name = serviceModel.Name,
-                Carbohydrates = serviceModel.Carbohydrates,
-                Description = serviceModel.Description,
-                Price = serviceModel.Price,
-                Image = serviceModel.Image,
-                Fat = serviceModel.Fat,
-                Proteins = serviceModel.Proteins,
-                TotalCalories = serviceModel.TotalCalories
-            };
+            var viewModel = AutoMapper.Mapper.Map<ProductsDetailsViewModel>(serviceModel);
 
             var ingNames = this.productsService.GetAllIngredientsName(serviceModel);
 
@@ -72,17 +53,8 @@ namespace JuicyBurger.Web.Controllers
         {
             GetAllProductTypes();
 
-            ////TODO: Map with AutoMapper
             var searchedProducts = productsService.Search(searchString)
-                .Select(product => new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    ProductTypeId = product.ProductTypeId,
-                    Price = product.Price,
-                    Image = product.Image
-                })
+                .Select(product => product.To<ProductViewModel>())
                 .ToList();
 
             return View("All", searchedProducts);

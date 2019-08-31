@@ -3,7 +3,6 @@ using JuicyBurger.Services.Cloud;
 using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Services.Models.Products;
-using JuicyBurger.Web.InputModels.Ingredients;
 using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Ingredients;
 using JuicyBurger.Web.ViewModels.Products;
@@ -55,13 +54,10 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             var productType = this.productsServices.GetAllTypes().FirstOrDefault(pt => pt.Name == serviceModel.ProductType);
 
-            List<IngredientServiceModel> ingredientServiceModels = new List<IngredientServiceModel>();
+            var productServiceModel = AutoMapper.Mapper.Map<ProductsCreateInputServiceModel>(serviceModel);
+            productServiceModel.ProductType = productType;
 
-            for (int i = 0; i < serviceModel.Ingredients.Count; i++)
-            {
-                var ingredient = new IngredientServiceModel { Name = serviceModel.Ingredients[i] };
-                ingredientServiceModels.Add(ingredient);
-            }
+            List<IngredientServiceModel> ingredientServiceModels = this.ingredientsServices.MapIngNamesToIngredientServiceModel(productServiceModel);
 
             ProductServiceModel product = new ProductServiceModel
             {
@@ -75,9 +71,9 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             //try catch
 
-            this.productsServices.Create(product);
+            string productId = this.productsServices.Create(product);
 
-            return this.Redirect("/");
+            return this.Redirect("/"); //redirect ot products all
         }
 
         [HttpGet("/Administration/Products/Type/Create")]

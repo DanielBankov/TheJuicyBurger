@@ -12,7 +12,7 @@ namespace JuicyBurger.Service.Products
 
         ProductsDetailsServiceModel Details(string id);
 
-        bool Create(ProductServiceModel inputModel);
+        string Create(ProductServiceModel inputModel);
 
         bool CreateType(ProductTypeServiceModel inputModel);
 

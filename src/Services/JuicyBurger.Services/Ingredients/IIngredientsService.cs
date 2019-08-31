@@ -14,8 +14,10 @@ namespace JuicyBurger.Services.Ingredients
 
         List<string> GetAllIds(Product product);
 
-        bool SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients);
+        string SetIngredientsToProduct(Product product, List<IngredientServiceModel> ingredients);
 
-        //List<IngredientServiceModel> MapIngNamesToIngredientServiceModel(ProductServiceModel serviceModel);
+        string IngredientsStringNames(List<string> ingredientsIds);
+
+        List<IngredientServiceModel> MapIngNamesToIngredientServiceModel(ProductsCreateInputServiceModel serviceModel);
     }
 }

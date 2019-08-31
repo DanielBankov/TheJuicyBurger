@@ -18,6 +18,7 @@ namespace JuicyBurger.Services.Restaurants
 
         public IQueryable<RestaurantsServiceModel> AllNotDeletedRequests()
         {
+            //check if some contracts are expired
             var expiredContracts = this.context.RestaurantContracts
                 .Where(res => res.ExpiresOn <= DateTime.UtcNow)
                 .ToList();
@@ -59,7 +60,7 @@ namespace JuicyBurger.Services.Restaurants
             return result > 0;
         }
 
-        public bool CreatePartner(RestaurantsServiceModel serviceModel, string contractorId)
+        public bool CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId)
         {
             Restaurant restaurant = AutoMapper.Mapper.Map<Restaurant>(serviceModel);
             restaurant.IssuedOn = DateTime.UtcNow;

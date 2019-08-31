@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace JuicyBurger.Web.InputModels.Products
 {
-    public class ProductsCreateInputModel : IMapTo<ProductServiceModel>, IMapFrom<ProductServiceModel>, IHaveCustomMappings
+    public class ProductsCreateInputModel : IMapTo<ProductsCreateInputServiceModel>, IMapFrom<ProductsCreateInputServiceModel>, IHaveCustomMappings
     {
         //public ProductsCreateInputModel()
         //{
@@ -38,11 +38,9 @@ namespace JuicyBurger.Web.InputModels.Products
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration
-                .CreateMap<ProductsCreateInputModel, ProductServiceModel>()
-                .ForMember(destination => destination.ProductType,
-                            opts => opts.MapFrom(origin => new ProductTypeServiceModel { Name = origin.ProductType }));
-                 //.ForMember(destination => destination.Ingredients,
-                 //           opts => opts.MapFrom(origin => new List<IngredientServiceModel> { new IngredientServiceModel { Name = origin.Ingredients } }));
+             .CreateMap<ProductsCreateInputModel, ProductsCreateInputServiceModel>()
+                         .ForMember(destination => destination.ProductType,
+                         opts => opts.Ignore());
         }
     }
 }

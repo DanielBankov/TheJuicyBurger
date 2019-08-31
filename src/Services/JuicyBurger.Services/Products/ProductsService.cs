@@ -27,7 +27,7 @@ namespace JuicyBurger.Service
             return this.context.Products.Where(product => product.ProductTypeId == id).To<ProductServiceModel>();
         }
 
-        public bool Create(ProductServiceModel inputModel)
+        public string Create(ProductServiceModel inputModel)
         {
             ProductType productTypeDb = context.ProductTypes
                 .SingleOrDefault(type => type.Name == inputModel.ProductType.Name);
@@ -39,17 +39,10 @@ namespace JuicyBurger.Service
                 throw new InvalidOperationException("Product with this name already exists!");
             }
 
-            Product product = new Product
-            {
-                Name = inputModel.Name,
-                Description = inputModel.Description,
-                Price = inputModel.Price,
-                ProductType = productTypeDb,
-                Image = inputModel.Image
-            };
+            var product = AutoMapper.Mapper.Map<Product>(inputModel);
 
-            var result = ingredientsService.SetIngredientsToProduct(product, inputModel.Ingredients);
-            return result;
+            var productId = ingredientsService.SetIngredientsToProduct(product, inputModel.Ingredients);
+            return productId;
         }
 
         public bool CreateType(ProductTypeServiceModel inputModel)
@@ -69,19 +62,7 @@ namespace JuicyBurger.Service
         {
             Product dbProduct = context.Products.Where(product => product.Id == id).FirstOrDefault();
 
-            //TODO: Map with AutoMapper
-            ProductsDetailsServiceModel serviceModel = new ProductsDetailsServiceModel
-            {
-                Id = dbProduct.Id,
-                Name = dbProduct.Name,
-                Carbohydrates = dbProduct.Carbohydrates,
-                Description = dbProduct.Description,
-                Price = dbProduct.Price,
-                Image = dbProduct.Image,
-                Fat = dbProduct.Fat,
-                Proteins = dbProduct.Proteins,
-                TotalCalories = dbProduct.TotalCalories,
-            };
+            var serviceModel = AutoMapper.Mapper.Map<ProductsDetailsServiceModel>(dbProduct);
 
             return serviceModel;
         }
@@ -93,23 +74,9 @@ namespace JuicyBurger.Service
                 .SingleOrDefault(p => p.Id == serviceModel.Id);
 
             var ingredientsIds = this.ingredientsService.GetAllIds(productWithIngredients);
+            var ingredientsName = this.ingredientsService.IngredientsStringNames(ingredientsIds);
 
-            StringBuilder sb = new StringBuilder();
-
-            var ingredients = this.ingredientsService.GetAll().ToList();
-
-            for (int i = 0; i < ingredients.Count; i++)
-            {
-                if (ingredientsIds.Contains(ingredients[i].Id))
-                {
-                    sb.Append($"{ingredients[i].Name}, ");
-                }
-            }
-
-            string ingredientsName = sb.ToString().TrimEnd();
-            string removeLastComma = ingredientsName.Remove(ingredientsName.Length - 1, 1);
-
-            return removeLastComma;
+            return ingredientsName;
         }
 
         public IQueryable<ProductTypeServiceModel> GetAllTypes()
@@ -126,17 +93,9 @@ namespace JuicyBurger.Service
 
         public IQueryable<ProductServiceModel> Search(string searchString)
         {
-            //TODO: Map with AutoMapper
             return context.Products
                 .Where(product => product.Name.Contains(searchString))
-                .Select(product => new ProductServiceModel
-                {
-                    Name = product.Name,
-                    Description = product.Description,
-                    Price = product.Price,
-                    ProductTypeId = product.ProductTypeId,
-                    Image = product.Image,
-                });
+                .To<ProductServiceModel>();
         }
     }
 }

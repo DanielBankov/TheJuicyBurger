@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using JuicyBurger.Services.Ingredients;
+﻿using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Web.InputModels.Ingredients;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +26,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             var ingredient = AutoMapper.Mapper.Map<IngredientServiceModel>(inputModel);
             this.ingredientsService.Create(ingredient);
 
-            return Redirect("/");
+            return Redirect("/"); // redirect to ingredients all
         }
     }
 }

@@ -36,8 +36,7 @@ namespace JuicyBurger.Web.Controllers
             var contractorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var restaurant = AutoMapper.Mapper.Map<RestaurantsServiceModel>(inputModel);
-
-            this.restaurantServices.CreatePartner(restaurant, contractorId);
+            this.restaurantServices.CreatePartnerRequest(restaurant, contractorId);
 
             return this.Redirect("/");
         }

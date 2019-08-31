@@ -28,7 +28,7 @@ namespace JuicyBurger.Web.Controllers
         {
             List<OrderCartViewModel> orders = this.ordersService.GetAll()
                 .Where(order => order.OrderStatus.Name == "Active"
-                && order.IssuerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                             && order.IssuerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 .To<OrderCartViewModel>()
                 .ToList();
 
