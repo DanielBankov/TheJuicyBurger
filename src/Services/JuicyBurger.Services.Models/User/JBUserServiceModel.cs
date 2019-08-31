@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace JuicyBurger.Services.Models.User
 {
-    public class JBUserServiceModel : IdentityUser, IMapFrom<JBUser>
+    public class JBUserServiceModel : IdentityUser, IMapFrom<JBUser>, IMapTo<JBUser>
     {
         public string FullName { get; set; }
 

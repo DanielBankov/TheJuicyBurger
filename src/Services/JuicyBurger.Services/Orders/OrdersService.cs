@@ -23,7 +23,6 @@ namespace JuicyBurger.Services.Orders
             if (orderDb == null)
             {
                 throw new InvalidOperationException("No active orders!");
-                // try catch in controller and redirect to error page
             }
 
             orderDb.OrderStatus = this.context.OrderStatuses.SingleOrDefault(os => os.Name == "Finished");
@@ -36,16 +35,19 @@ namespace JuicyBurger.Services.Orders
 
         public bool Create(OrderServiceModel orderService)
         {
-            var issuedOn = DateTime.UtcNow;
+            //IsProductAlreadyOrderedResult to increase quantity
+            var IsProductAlreadyOrderedResult = IsProductAlreadyOrdered(orderService);
+
+            if (IsProductAlreadyOrderedResult)
+            {
+                return true;
+            }
 
             Order order = orderService.To<Order>();
-            //var order = new Order
-            //{
-            //    Quantity = 1,
-            //    IssuedOn = issuedOn,
-            //    IssuerId = issuer,
-            //    ProductId = id
-            //};
+
+            var issuedOn = DateTime.UtcNow;
+            order.Quantity = 1; ////////// CONST
+            order.IssuedOn = DateTime.UtcNow;
 
             order.OrderStatus = this.context.OrderStatuses.SingleOrDefault(os => os.Name == "Active");
 
@@ -67,6 +69,30 @@ namespace JuicyBurger.Services.Orders
                 .ToList();
 
             receipt.Orders = orders;
+        }
+
+        private bool IsProductAlreadyOrdered(OrderServiceModel orderService)
+        {
+            var allOrders = GetAll().ToList();
+            var ordaredOrder = new OrderServiceModel();
+            var result = 0;
+
+            foreach (var currOrder in allOrders)
+            {
+                if (currOrder.ProductId == orderService.ProductId)
+                {
+                    ordaredOrder = currOrder;
+
+                    var orderAlreadyOrdered = context.Orders.SingleOrDefault(or => or.Id == ordaredOrder.Id);
+                    orderAlreadyOrdered.Quantity++;
+                    this.context.Orders.Update(orderAlreadyOrdered);
+                    result = context.SaveChanges();
+
+                    return result > 0;
+                }
+            }
+
+            return result > 0;
         }
     }
 }

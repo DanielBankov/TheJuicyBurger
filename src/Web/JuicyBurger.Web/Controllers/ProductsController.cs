@@ -66,11 +66,12 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpPost(Name = "Order")]
-        public IActionResult Order(ProductOrderInputModel inputModel)
+        public IActionResult Order(ProductOrderInputModel inputModel, string id)
         {
             OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
 
             orderServiceModel.IssuerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            orderServiceModel.ProductId = id;
             this.ordersService.Create(orderServiceModel);
 
             //retur to cart
