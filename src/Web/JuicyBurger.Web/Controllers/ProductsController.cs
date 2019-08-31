@@ -31,7 +31,7 @@ namespace JuicyBurger.Web.Controllers
         {
             GetAllProductTypes();
 
-            var products = this.productsService.All(id)
+            var products = this.productsService.AllByProductTypeId(id)
                 .Select(prod => prod.To<ProductViewModel>())
                 .ToList();
 

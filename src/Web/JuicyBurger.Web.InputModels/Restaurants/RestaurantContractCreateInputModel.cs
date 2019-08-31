@@ -16,10 +16,10 @@ namespace JuicyBurger.Web.InputModels.Restaurants
         public string Conditions { get; set; }
 
         [Required]
-        [DataAfterBeforeValidation(ServicesGlobalConstants.CustomValidationDateBefore)]
         public DateTime ExpiresOn { get; set; }
 
         [Required]
+        [DataAfterBeforeValidation(ServicesGlobalConstants.CustomValidationDateBefore)]
         public DateTime IssuedOn { get; set; }
 
         [Required]

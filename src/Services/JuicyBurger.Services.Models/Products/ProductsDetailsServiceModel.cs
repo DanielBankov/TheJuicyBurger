@@ -19,6 +19,8 @@ namespace JuicyBurger.Services.Models.Products
 
         public double Proteins { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public double TotalCalories { get; set; }
 
         public string Description { get; set; }

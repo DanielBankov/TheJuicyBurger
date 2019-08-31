@@ -23,7 +23,7 @@ namespace JuicyBurger.Service
             this.ingredientsService = ingredientsService;
         }
 
-        public IQueryable<ProductServiceModel> All(int id)
+        public IQueryable<ProductServiceModel> AllByProductTypeId(int id)
         {
             return this.context.Products.Where(product => product.ProductTypeId == id).To<ProductServiceModel>();
         }
@@ -53,6 +53,17 @@ namespace JuicyBurger.Service
             return result > num;
         }
 
+        public bool Delete(string id)
+        {
+            var productDb = this.context.Products.SingleOrDefault(product => product.Id == id);
+            productDb.IsDeleted = true;
+
+            context.Products.Update(productDb);
+            var result = context.SaveChanges();
+
+            return result > num;
+        }
+
         public ProductsDetailsServiceModel Details(string id)
         {
             Product dbProduct = this.context.Products.Where(product => product.Id == id).FirstOrDefault();
@@ -60,6 +71,11 @@ namespace JuicyBurger.Service
             var serviceModel = AutoMapper.Mapper.Map<ProductsDetailsServiceModel>(dbProduct);
 
             return serviceModel;
+        }
+
+        public IQueryable<ProductsAllServiceModel> GetAll()
+        {
+            return this.context.Products.Where(product => product.IsDeleted == false).To<ProductsAllServiceModel>();
         }
 
         public string GetAllIngredientsName(ProductsDetailsServiceModel serviceModel)

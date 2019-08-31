@@ -57,7 +57,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             restaurantContract.RestaurantId = id;
             this.restaurantServices.CreateContract(restaurantContract);
 
-            return this.View(ServicesGlobalConstants.ViewRestaurantsContracts); 
+            return this.Redirect(ServicesGlobalConstants.HomeIndex); 
         }
     }
 }

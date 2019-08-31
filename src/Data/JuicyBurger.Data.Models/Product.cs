@@ -15,6 +15,8 @@ namespace JuicyBurger.Data.Models
 
         public decimal Price { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public double Carbohydrates { get; set; }
 
         public double Fat { get; set; }

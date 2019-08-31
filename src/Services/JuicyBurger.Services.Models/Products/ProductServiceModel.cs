@@ -19,6 +19,8 @@ namespace JuicyBurger.Services.Models.Products
 
         public string Image { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public int ProductTypeId { get; set; }
 
         public ProductTypeServiceModel ProductType { get; set; }

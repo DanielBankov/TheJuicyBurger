@@ -17,6 +17,8 @@ namespace JuicyBurger.Web.ViewModels.Products
 
         public double Fat { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public double Proteins { get; set; }
 
         public double TotalCalories { get; set; }

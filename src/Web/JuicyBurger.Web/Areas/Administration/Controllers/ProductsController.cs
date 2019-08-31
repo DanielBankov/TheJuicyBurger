@@ -2,6 +2,7 @@
 using JuicyBurger.Services.Cloud;
 using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Ingredients;
+using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Web.InputModels.Products;
@@ -26,9 +27,21 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             this.cloudinaryServices = cloudinaryServices;
         }
 
+        [HttpGet("/Administration/Products/All")]
         public IActionResult All()
         {
-            return this.View();
+            var products = this.productsServices.GetAll()
+                .To<ProductsAllViewModel>()
+                .ToList(); // where is active
+
+            return this.View(products);
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this.productsServices.Delete(id);
+
+            return this.Redirect(ServicesGlobalConstants.HomeIndex);
         }
 
         public IActionResult Create()
