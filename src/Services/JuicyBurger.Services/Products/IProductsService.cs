@@ -20,7 +20,6 @@ namespace JuicyBurger.Service.Products
 
         IQueryable<ProductsAllServiceModel> GetAll();
 
-
         string GetAllIngredientsName(ProductsDetailsServiceModel serviceModel);
     }
 }

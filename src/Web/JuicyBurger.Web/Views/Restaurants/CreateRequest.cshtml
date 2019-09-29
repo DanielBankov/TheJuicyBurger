@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateRequest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
     <div class="container shadow mt-1 p-5">
         <h2 class="bg-dark text-white font-weight-bold text-center p-2 rounded">Request Company Partner</h2>
         <hr />
-        <form method="post" asp-action="/Restaurants/Create">
+        <form method="post" asp-action="/Restaurants/CreateRequest">
             <div asp-validation-summary="ModelOnly"></div>
             <div class="form-group mx-auto w-50">
                 <div class="d-flex justify-content-center">

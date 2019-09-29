@@ -2,6 +2,7 @@
 using JuicyBurger.Services.Models.Restaurants;
 using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.InputModels.Restaurants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -22,13 +23,15 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateRequest()
         {
             return this.View();
         }
 
+        //Create partner request
+        [Authorize]
         [HttpPost]
-        public IActionResult Create(RestaurantsCreateInputModel inputModel)
+        public IActionResult CreateRequest(RestaurantsCreateInputModel inputModel)
         {
             var contractorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 

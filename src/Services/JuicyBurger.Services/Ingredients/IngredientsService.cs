@@ -59,7 +59,7 @@ namespace JuicyBurger.Services.Ingredients
             }
 
             string ingredientsName = sb.ToString().TrimEnd();
-            ingredientsName.Remove(ingredientsName.Length - StartIndexAndCount, StartIndexAndCount);
+            ingredientsName = ingredientsName.Remove(ingredientsName.Length - StartIndexAndCount, StartIndexAndCount);
 
             return ingredientsName;
         }

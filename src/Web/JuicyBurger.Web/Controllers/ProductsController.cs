@@ -25,7 +25,6 @@ namespace JuicyBurger.Web.Controllers
             this.ordersService = OrdersService;
         }
 
-        [Authorize]
         [HttpGet(ServicesGlobalConstants.HttpProductsAllId)]
         public IActionResult All(int id)
         {
@@ -38,14 +37,16 @@ namespace JuicyBurger.Web.Controllers
             return this.View(products);
         }
 
-        [Authorize]
         [Route(ServicesGlobalConstants.HttpProductsDetailsId)]
         public IActionResult Details(string id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.View();
+            }
+
             var serviceModel = this.productsService.Details(id);
-
             var viewModel = AutoMapper.Mapper.Map<ProductsDetailsViewModel>(serviceModel);
-
             var ingNames = this.productsService.GetAllIngredientsName(serviceModel);
 
             this.ViewData[ServicesGlobalConstants.IngredientsNameViewData] = ingNames;
@@ -53,7 +54,6 @@ namespace JuicyBurger.Web.Controllers
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult Search(string searchString)
         {
@@ -66,7 +66,7 @@ namespace JuicyBurger.Web.Controllers
             return this.View(ServicesGlobalConstants.ViewProductsAll, searchedProducts);
         }
 
-        //[HttpPost(Name = "Order")]
+        [Authorize]
         public IActionResult Order(ProductOrderInputModel inputModel, string id)
         {
             OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
@@ -75,8 +75,7 @@ namespace JuicyBurger.Web.Controllers
             orderServiceModel.ProductId = id;
             this.ordersService.Create(orderServiceModel);
 
-            //retur to cart
-            return this.Redirect(ServicesGlobalConstants.HomeIndex);
+            return this.RedirectToAction("Cart", "Orders");
         }
 
         private void GetAllProductTypes()

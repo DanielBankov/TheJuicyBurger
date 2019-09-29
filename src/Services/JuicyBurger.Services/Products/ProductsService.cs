@@ -80,7 +80,8 @@ namespace JuicyBurger.Service
 
         public string GetAllIngredientsName(ProductsDetailsServiceModel serviceModel)
         {
-            Product productWithIngredients = this.context.Products
+            Product productWithIngredients = this.context
+                .Products
                 .Include(p => p.ProductIngredients)
                 .SingleOrDefault(p => p.Id == serviceModel.Id);
 

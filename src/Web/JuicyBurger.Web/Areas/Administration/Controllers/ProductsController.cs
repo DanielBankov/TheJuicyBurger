@@ -86,7 +86,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             this.productsServices.Create(product);
 
-            return this.Redirect(ServicesGlobalConstants.HomeIndex); //redirect ot products all
+            return this.Redirect(ServicesGlobalConstants.HomeIndex); 
         }
 
         [HttpGet(ServicesGlobalConstants.TypeCreateRoute)]
