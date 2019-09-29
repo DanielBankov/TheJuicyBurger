@@ -54,7 +54,7 @@ namespace JuicyBurger.Web.Controllers
             return this.View(viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Search(string searchString)
         {
             GetAllProductTypes();

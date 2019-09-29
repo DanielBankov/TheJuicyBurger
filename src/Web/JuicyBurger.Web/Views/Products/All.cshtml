@@ -20,7 +20,7 @@
             <div class="card mb-4">
                 <h5 class="card-header main-content-icons-text bg-dark text-white">SEARCH</h5>
                 <div id="search-bar" class="card-body">
-                    <form method="post" asp-controller="Products" asp-action="Search">
+                    <form method="get" asp-controller="Products" asp-action="Search">
                         <div class="input-group">
                             <input id="search-bar" type="text" class="form-control" name="searchString" placeholder="Search for...">
                             <span class="input-group-btn">
