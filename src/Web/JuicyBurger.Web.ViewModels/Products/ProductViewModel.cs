@@ -2,6 +2,7 @@
 using JuicyBurger.Services.Models.Products;
 using JuicyBurger.Web.ViewModels.Ingredients;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JuicyBurger.Web.ViewModels.Products
 {
@@ -24,6 +25,5 @@ namespace JuicyBurger.Web.ViewModels.Products
         public ProductTypeViewModel ProductType { get; set; }
 
         public List<IngredientsProductViewModel> Ingredients { get; set; }
-
     }
 }

@@ -50,8 +50,8 @@
 
         public const string RedirectProductCreate = "/Administration/Products/Create";
 
-        public const string HttpProductsAllId = "/Products/All/{id}";
-
+        public const string HttpProductsAllId = "/Products/All/{id?}";
+            
         public const string HttpProductsDetailsId = "/Products/Details/{id}";
 
         public const string ViewProductsAll = "All";

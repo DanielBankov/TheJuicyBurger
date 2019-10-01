@@ -23,9 +23,10 @@ namespace JuicyBurger.Service
             this.ingredientsService = ingredientsService;
         }
 
-        public IQueryable<ProductServiceModel> AllByProductTypeId(int id)
+        public IQueryable<ProductServiceModel> AllByProductTypeId(int? id)
         {
-            return this.context.Products.Where(product => product.ProductTypeId == id).To<ProductServiceModel>();
+            return id == null ? 
+                this.context.Products.Where(product => product.ProductTypeId == 1).To<ProductServiceModel>() : this.context.Products.Where(product => product.ProductTypeId == id).To<ProductServiceModel>();
         }
 
         public bool Create(ProductServiceModel inputModel)

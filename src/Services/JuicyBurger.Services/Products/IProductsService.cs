@@ -5,7 +5,7 @@ namespace JuicyBurger.Service.Products
 {
     public interface IProductsService
     {
-        IQueryable<ProductServiceModel> AllByProductTypeId(int id);
+        IQueryable<ProductServiceModel> AllByProductTypeId(int? id);
 
         IQueryable<ProductServiceModel> Search(string searchString);
 

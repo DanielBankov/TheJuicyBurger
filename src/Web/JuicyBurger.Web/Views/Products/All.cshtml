@@ -1,5 +1,6 @@
 ﻿@using JuicyBurger.Services.GlobalConstants
 @using JuicyBurger.Web.ViewModels.Products
+@using System.Text.RegularExpressions
 @model List<ProductViewModel>
 
 @{
@@ -39,7 +40,7 @@
                             @foreach (var types in (IEnumerable<ProductTypeViewModel>)this.ViewData[ServicesGlobalConstants.ProductTypesMenuViewData])
                             {
                                 <li class="mb-1">
-                                    <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/All/@types.Id">@types.Name</a>
+                                    <a class="list-group-item main-content-icons-text bg-dark text-white" href="/Products/All/@types.Id/?page=1">@types.Name</a>
                                 </li>
                             }
                         </ul>
@@ -56,30 +57,57 @@
         </div>
         <div class="product-card col-md-8">
             <!-- Blog Post -->
-            @foreach (var products in Model)
-            {
-                <div class="product-card mb-4">
-                    <img class="card-img-top" src="@products.Image" alt="Card image cap">
-                    <div class="card-body">
-                        <h2 class="product-name main-content-icons-text">@products.Name</h2>
-                        <h3 class="card-title main-content-icons-text">&#36; @products.Price.ToString(ServicesGlobalConstants.PriceRouting)</h3>
-                        <p class="card-text card-title main-content-icons-text">@products.Description</p>
-                        <a href="/Products/Details/@products.Id" class="btn main-content-icons-text btn-dark">Details &rarr;</a>
+
+            @{
+
+                @for (int j = 0; j < Model.Count; j++)
+                {
+                    <div class="product-card mb-4">
+                        <img class="card-img-top" src="@Model[j].Image" alt="Card image cap">
+                        <div class="card-body">
+                            <h2 class="product-name main-content-icons-text">@Model[j].Name</h2>
+                            <h3 class="card-title main-content-icons-text">&#36; @Model[j].Price.ToString(ServicesGlobalConstants.PriceRouting)</h3>
+                            <p class="card-text card-title main-content-icons-text">@Model[j].Description</p>
+                            <a href="/Products/Details/@Model[j].Id" class="btn main-content-icons-text btn-dark">Details &rarr;</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ★ ★ ★ ★ ☆
+                        </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        ★ ★ ★ ★ ☆
-                    </div>
-                </div>
+
+                }
+
+                var queryString = Context.Request.QueryString.Value;
+                var page = string.Empty;
+                var pager = new Pager(Model.Count);
+
+                if (!string.IsNullOrEmpty(queryString))
+                {
+                    page = Regex.Match(queryString, @"\d+").Value;
+                    pager = new Pager(Model.Count, int.Parse(page));
+                }
+
+                <nav class="col d-flex justify-content-center mb-5" aria-label="Page navigation example">
+                    <ul class="pagination border-dark">
+
+                        @for (var i = pager.FirstPage; i <= pager.Lastpage; i++)
+                        {
+                            if (i == int.Parse(page))
+                            {
+                                <li class="page-item active ">
+                                    <a class="page-link bg-dark border-dark" href="~/Products/All/@this.ViewData["currentMenuCategory"]/?page=@i">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link bg-white border-dark text-dark" href="~/Products/All/@this.ViewData["currentMenuCategory"]/?page=@i">@i</a>
+                                </li>
+                            }
+                        }   
+                    </ul>
+                </nav>
             }
-            <!-- Pagination -->
-            <ul class="pagination justify-content-center mb-5">
-                <li class="page-item">
-                    <a class="page-link" href="#">&larr; Older</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Newer &rarr;</a>
-                </li>
-            </ul>
         </div>
     </div>
 </div>
