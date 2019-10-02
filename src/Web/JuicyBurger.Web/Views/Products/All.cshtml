@@ -57,42 +57,41 @@
         </div>
         <div class="product-card col-md-8">
             <!-- Blog Post -->
-
             @{
+                var queryString = Context.Request.QueryString.Value;
+                var page = 1;
+                var pager = new Pager(Model.Count);
 
-                @for (int j = 0; j < Model.Count; j++)
+                if (!string.IsNullOrEmpty(queryString))
+                {
+                    page = int.Parse(Regex.Match(queryString, @"\d+").Value);
+                    pager = new Pager(Model.Count, page);
+                }
+
+                var productsPage = Model.Skip((page - 1) * 3).Take(3).ToList();
+
+                @for (int j = 0; j < productsPage.Count; j++)
                 {
                     <div class="product-card mb-4">
-                        <img class="card-img-top" src="@Model[j].Image" alt="Card image cap">
+                        <img class="card-img-top" src="@productsPage[j].Image" alt="Card image cap">
                         <div class="card-body">
-                            <h2 class="product-name main-content-icons-text">@Model[j].Name</h2>
-                            <h3 class="card-title main-content-icons-text">&#36; @Model[j].Price.ToString(ServicesGlobalConstants.PriceRouting)</h3>
-                            <p class="card-text card-title main-content-icons-text">@Model[j].Description</p>
-                            <a href="/Products/Details/@Model[j].Id" class="btn main-content-icons-text btn-dark">Details &rarr;</a>
+                            <h2 class="product-name main-content-icons-text">@productsPage[j].Name</h2>
+                            <h3 class="card-title main-content-icons-text">&#36; @productsPage[j].Price.ToString(ServicesGlobalConstants.PriceRouting)</h3>
+                            <p class="card-text card-title main-content-icons-text">@productsPage[j].Description</p>
+                            <a href="/Products/Details/@productsPage[j].Id" class="btn main-content-icons-text btn-dark">Details &rarr;</a>
                         </div>
                         <div class="card-footer text-muted">
                             ★ ★ ★ ★ ☆
                         </div>
                     </div>
-
-                }
-
-                var queryString = Context.Request.QueryString.Value;
-                var page = string.Empty;
-                var pager = new Pager(Model.Count);
-
-                if (!string.IsNullOrEmpty(queryString))
-                {
-                    page = Regex.Match(queryString, @"\d+").Value;
-                    pager = new Pager(Model.Count, int.Parse(page));
                 }
 
                 <nav class="col d-flex justify-content-center mb-5" aria-label="Page navigation example">
                     <ul class="pagination border-dark">
 
-                        @for (var i = pager.FirstPage; i <= pager.Lastpage; i++)
+                        @for (var i = 1; i <= pager.TotalPages; i++)
                         {
-                            if (i == int.Parse(page))
+                            if (i == page)
                             {
                                 <li class="page-item active ">
                                     <a class="page-link bg-dark border-dark" href="~/Products/All/@this.ViewData["currentMenuCategory"]/?page=@i">@i</a>
@@ -104,7 +103,7 @@
                                     <a class="page-link bg-white border-dark text-dark" href="~/Products/All/@this.ViewData["currentMenuCategory"]/?page=@i">@i</a>
                                 </li>
                             }
-                        }   
+                        }
                     </ul>
                 </nav>
             }

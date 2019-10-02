@@ -49,7 +49,7 @@
                                 @if (!this.User.Identity.IsAuthenticated)
                                 {
                                     <li class="nav-item">
-                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Products/All">Menu</a>
+                                        <a id="font-welcome" class="nav-link font-weight-bold" href="/Products/All?page=1">Menu</a>
                                     </li>
                                     <li class="nav-item">
                                         <a id="font-welcome" class="nav-link font-weight-bold" href="/Home/About">About</a>
@@ -138,12 +138,12 @@
                         <ul class="navbar-nav ml-auto">
                             <li>
                                 <p>
-                                    <a class="text-secondary" href="/Products/All/1">Our Menu</a>
+                                    <a class="text-secondary" href="/Products/All?page=1">Our Menu</a>
                                 </p>
                             </li>
                             <li>
                                 <p>
-                                    <a class="text-secondary" href="#">Delivery</a>
+                                    <a class="text-secondary" href="~/Home/_ComingSoon">Delivery</a>
                                 </p>
                             </li>
                             <li>

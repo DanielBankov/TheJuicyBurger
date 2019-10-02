@@ -26,7 +26,7 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpGet(ServicesGlobalConstants.HttpProductsAllId)]
-        public IActionResult All(int? id, int page = 1)
+        public IActionResult All(int? id)
         {
             GetAllProductTypes();
 
@@ -36,9 +36,7 @@ namespace JuicyBurger.Web.Controllers
                 .Select(prod => prod.To<ProductViewModel>())
                 .ToList();
 
-            var pr = products.Skip((page - 1) * 3).Take(3).ToList();
-
-            return this.View(pr);
+            return this.View(products);
         }
 
         [Route(ServicesGlobalConstants.HttpProductsDetailsId)]

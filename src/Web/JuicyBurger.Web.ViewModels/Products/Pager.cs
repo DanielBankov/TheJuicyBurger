@@ -14,16 +14,12 @@ namespace JuicyBurger.Web.ViewModels.Products
 
             if (firstPage <= 0)
             {
-                lastPage -= (firstPage - 1);
                 firstPage = 1;
             }
+
             if(lastPage >= totalPages)
             {
                 lastPage = totalPages + 1;
-                if (lastPage > 10)
-                {
-                    firstPage = lastPage - 9;
-                }
             }
 
             this.TotalPages = totalPages;
