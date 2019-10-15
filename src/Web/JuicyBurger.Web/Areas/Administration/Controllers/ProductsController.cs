@@ -9,8 +9,10 @@ using JuicyBurger.Web.InputModels.Products;
 using JuicyBurger.Web.ViewModels.Ingredients;
 using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Areas.Administration.Controllers
 {
@@ -28,51 +30,51 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         }
 
         [HttpGet("/Administration/Products/All")]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var products = this.productsServices.GetAll()
+            var products = await this.productsServices.GetAll()
                 .To<ProductsAllViewModel>()
-                .ToList(); // where is active
+                .ToListAsync(); // where is active
 
             return this.View(products);
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.productsServices.Delete(id);
+            await this.productsServices.Delete(id);
 
             return this.Redirect(ServicesGlobalConstants.HomeIndex);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            SetProductTypeViewData();
+            await SetProductTypeViewData();
 
-            SetIngredientsViewData();
+            await SetIngredientsViewData();
 
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Create(ProductsCreateInputModel serviceModel)
+        public async Task<IActionResult> Create(ProductsCreateInputModel serviceModel)
         {
             if (!ModelState.IsValid)
             {
-                SetProductTypeViewData();
+                await SetProductTypeViewData();
 
-                SetIngredientsViewData();
+                await SetIngredientsViewData();
 
                 return this.View(serviceModel);
             }
 
             string imageUrl = this.cloudinaryServices.UploadeImage(serviceModel.Image, serviceModel.Name);
 
-            var productType = this.productsServices.GetAllTypes().FirstOrDefault(pt => pt.Name == serviceModel.ProductType);
+            var productType = await this.productsServices.GetAllTypes().FirstOrDefaultAsync(pt => pt.Name == serviceModel.ProductType);
 
             var productServiceModel = AutoMapper.Mapper.Map<ProductsCreateInputServiceModel>(serviceModel);
             productServiceModel.ProductType = productType;
 
-            List<IngredientServiceModel> ingredientServiceModels = this.ingredientsServices.MapIngNamesToIngredientServiceModel(productServiceModel);
+            List<IngredientServiceModel> ingredientServiceModels =  await this.ingredientsServices.MapIngNamesToIngredientServiceModel(productServiceModel);
 
             ProductServiceModel product = new ProductServiceModel
             {
@@ -84,13 +86,13 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
                 Image = imageUrl
             };
 
-            this.productsServices.Create(product);
+            await this.productsServices.Create(product);
 
             return this.Redirect(ServicesGlobalConstants.HomeIndex); 
         }
 
         [HttpGet(ServicesGlobalConstants.TypeCreateRoute)]
-        public IActionResult CreateType()
+        public async Task<IActionResult> CreateType()
         {
             this.productsServices.GetAllTypes();
 
@@ -98,7 +100,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         }
 
         [HttpPost(ServicesGlobalConstants.TypeCreateRoute)]
-        public IActionResult CreateType(ProductTypesCreateInputModel serviceModel)
+        public async Task<IActionResult> CreateType(ProductTypesCreateInputModel serviceModel)
         {
             if (!ModelState.IsValid)
             {
@@ -110,27 +112,31 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
                 Name = serviceModel.Name,
             };
 
-            this.productsServices.CreateType(product);
+            await this.productsServices.CreateType(product);
 
             return this.Redirect(ServicesGlobalConstants.RedirectProductCreate);
         }
 
-        private void SetIngredientsViewData()
+        private Task SetIngredientsViewData()
         {
             var allIngredients = this.ingredientsServices.GetAll();
             this.ViewData[ServicesGlobalConstants.IngredientsViewData] = allIngredients.Select(ingredient => new IngredientsAllCreateViewModel
             {
                 Name = ingredient.Name
             });
+
+            return Task.CompletedTask;
         }
 
-        private void SetProductTypeViewData()
+        private Task SetProductTypeViewData()
         {
             var allProductTypes = this.productsServices.GetAllTypes();
             this.ViewData[ServicesGlobalConstants.ProductTypeViewData] = allProductTypes.Select(productType => new ProductTypeViewModel
             {
                 Name = productType.Name
             });
+
+            return Task.CompletedTask;
         }
     }
 }

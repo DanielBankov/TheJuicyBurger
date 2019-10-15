@@ -3,8 +3,10 @@ using JuicyBurger.Data.Models;
 using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Restaurants;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Services.Restaurants
 {
@@ -19,20 +21,20 @@ namespace JuicyBurger.Services.Restaurants
             this.context = context;
         }
 
-        public IQueryable<RestaurantsServiceModel> AllNotDeletedRequests()
+        public async Task<IQueryable<RestaurantsServiceModel>> AllNotDeletedRequests()
         {
             //check if some contracts are expired
-            var expiredContracts = this.context.RestaurantContracts
+            var expiredContracts = await this.context.RestaurantContracts
                 .Where(res => res.ExpiresOn <= DateTime.UtcNow)
-                .ToList();
+                .ToListAsync();
 
             foreach (var expiredContract in expiredContracts)
             {
-                Restaurant restaurant = GetRestaurantById(expiredContract.Id);
+                Restaurant restaurant = await GetRestaurantById(expiredContract.Id);
                 expiredContract.Restaurant.IsContractActive = false;
 
-                this.context.RestaurantContracts.Update(expiredContract);
-                this.context.SaveChanges();
+                await Task.Run(() => this.context.RestaurantContracts.Update(expiredContract));
+                await this.context.SaveChangesAsync();
             }
 
             var requests = this.context.Restaurants
@@ -42,56 +44,57 @@ namespace JuicyBurger.Services.Restaurants
             return requests;
         }
 
-        public bool CreateContract(RestaurantContractServiceModel serviceModel)
+        public async Task<bool> CreateContract(RestaurantContractServiceModel serviceModel)
         {
             RestaurantContract restaurantContract = AutoMapper.Mapper.Map<RestaurantContract>(serviceModel);
-            Restaurant restaurant = GetRestaurantById(restaurantContract.Id);
+            Restaurant restaurant = await GetRestaurantById(restaurantContract.Id);
             restaurant.IsContractActive = true;
 
-            var isContractExsited = this.context.RestaurantContracts.Any(ress => ress.Id == restaurantContract.Id);
+            var isContractExsited = await this.context.RestaurantContracts
+                .AnyAsync(ress => ress.Id == restaurantContract.Id);
             int result = int.MinValue;
 
             if (isContractExsited)
             {
-                this.context.RestaurantContracts.Update(restaurantContract);
-                result = this.context.SaveChanges();
+                await Task.Run(() => this.context.RestaurantContracts.Update(restaurantContract));
+                result = await this.context.SaveChangesAsync();
                 return result > num;
             }
 
-            this.context.RestaurantContracts.Add(restaurantContract);
-            result = this.context.SaveChanges();
+            await this.context.RestaurantContracts.AddAsync(restaurantContract);
+            result = await this.context.SaveChangesAsync();
             return result > num;
         }
 
-        public bool CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId)
+        public async Task<bool> CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId)
         {
             Restaurant restaurant = AutoMapper.Mapper.Map<Restaurant>(serviceModel);
             restaurant.IssuedOn = DateTime.UtcNow;
             restaurant.ContractorId = contractorId;
 
-            this.context.Restaurants.Add(restaurant);
-            int result = this.context.SaveChanges();
+            await this.context.Restaurants.AddAsync(restaurant);
+            int result = await this.context.SaveChangesAsync();
 
             return result > num;
         }
 
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
-            var restorantDb = this.context.Restaurants
+            var restorantDb = await this.context.Restaurants
                 .Where(restaurant => restaurant.Id == id)
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
 
             var deletedRestaurant = restorantDb.IsDeleted = true;
 
-            this.context.Restaurants.Update(restorantDb);
-            var result = this.context.SaveChanges();
+            await Task.Run(() => this.context.Restaurants.Update(restorantDb));
+            var result = await this.context.SaveChangesAsync();
 
             return result > num;
         }
 
-        private Restaurant GetRestaurantById(string id)
+        private async Task<Restaurant> GetRestaurantById(string id)
         {
-            return this.context.Restaurants.SingleOrDefault(restaurant => restaurant.Id == id);
+            return await this.context.Restaurants.SingleOrDefaultAsync(restaurant => restaurant.Id == id);
         }
     }
 }

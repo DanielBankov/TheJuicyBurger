@@ -5,7 +5,9 @@ using JuicyBurger.Services.Restaurants;
 using JuicyBurger.Web.InputModels.Restaurants;
 using JuicyBurger.Web.ViewModels.Restaurants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Areas.Administration.Controllers
 {
@@ -18,35 +20,34 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             this.restaurantServices = restaurantServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return this.View();
         }
 
-        public IActionResult Requests()
+        public async Task<IActionResult> Requests()
         {
-            var restaurantRequests = this.restaurantServices.AllNotDeletedRequests()
-                .To<RestaurantsRequestViewModel>()
-                .ToList();
+            var restaurantRequests = await this.restaurantServices.AllNotDeletedRequests();
+            var restaurantRequestsView = restaurantRequests.To<RestaurantsRequestViewModel>().ToList();
 
-            return this.View(restaurantRequests);
+            return this.View(restaurantRequestsView);
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.restaurantServices.Delete(id);
+            await this.restaurantServices.Delete(id);
 
             return this.Redirect(ServicesGlobalConstants.RedirectRestaurantRequest);
         }
 
         [HttpGet(ServicesGlobalConstants.HttpRestaurantsContractsCreateId)]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return this.View(ServicesGlobalConstants.ViewContractsCreate);
         }
 
         [HttpPost(ServicesGlobalConstants.HttpRestaurantsContractsCreateId)]
-        public IActionResult Create(RestaurantContractCreateInputModel inputModel, string id)
+        public async Task<IActionResult> Create(RestaurantContractCreateInputModel inputModel, string id)
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
 
             var restaurantContract = AutoMapper.Mapper.Map<RestaurantContractServiceModel>(inputModel);
             restaurantContract.RestaurantId = id;
-            this.restaurantServices.CreateContract(restaurantContract);
+            await this.restaurantServices.CreateContract(restaurantContract);
 
             return this.Redirect(ServicesGlobalConstants.HomeIndex); 
         }

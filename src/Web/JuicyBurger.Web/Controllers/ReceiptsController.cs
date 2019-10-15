@@ -3,8 +3,10 @@ using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Receipt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -18,16 +20,16 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return this.View();
         }
 
         [Authorize]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var receiptServiceModel = this.receiptsService.GetAll()
-                .SingleOrDefault(receipt => receipt.Id == id);
+            var receiptServiceModel = await this.receiptsService.GetAll()
+                .SingleOrDefaultAsync(receipt => receipt.Id == id);
 
             //TODO: validate if receiptServiceModel return null
 
@@ -37,14 +39,16 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var receiptServiceModel = this.receiptsService.GetByRecipientId(userId)
-                .ToList()
-                .Select(receipt => receipt.To<ReceiptAllViewModel>())
-                .ToList();
+            var receiptsFromDb = await this.receiptsService.GetByRecipientId(userId)
+                .ToListAsync();
+
+            var receiptServiceModel = await Task.Run(() => receiptsFromDb
+            .Select(receipt => receipt.To<ReceiptAllViewModel>())
+            .ToList());
 
             return this.View(receiptServiceModel);
         }

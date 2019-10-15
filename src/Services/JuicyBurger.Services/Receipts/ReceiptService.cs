@@ -5,6 +5,7 @@ using JuicyBurger.Services.Models.Receipts;
 using JuicyBurger.Services.Orders;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Services.Receipts
 {
@@ -19,7 +20,7 @@ namespace JuicyBurger.Services.Receipts
             this.ordersService = ordersService;
         }
 
-        public string Create(string recipientId)
+        public async Task<string> Create(string recipientId)
         {
             Receipt receipt = new Receipt
             {
@@ -27,15 +28,15 @@ namespace JuicyBurger.Services.Receipts
                 RecipientId = recipientId,
             };
 
-            ordersService.SetOrdersToReceipt(receipt);
+            await ordersService.SetOrdersToReceipt(receipt);
 
             foreach (var order in receipt.Orders)
             {
-                this.ordersService.CompleteOrder(order.Id);
+                await this.ordersService.CompleteOrder(order.Id);
             }
 
-            this.context.Recipts.Add(receipt);
-            this.context.SaveChanges();
+            await this.context.Recipts.AddAsync(receipt);
+            await this.context.SaveChangesAsync();
 
             return receipt.Id;
         } 

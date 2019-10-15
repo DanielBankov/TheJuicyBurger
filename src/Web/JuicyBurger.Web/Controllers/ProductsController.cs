@@ -7,8 +7,10 @@ using JuicyBurger.Services.Orders;
 using JuicyBurger.Web.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -26,30 +28,30 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpGet(ServicesGlobalConstants.HttpProductsAllId)]
-        public IActionResult All(int? id)
+        public async Task<IActionResult> All(int? id)
         {
-            GetAllProductTypes();
+            await GetAllProductTypes();
 
             this.ViewData["currentMenuCategory"] = id == null ? 1 : id;
 
-            var products = this.productsService.AllByProductTypeId(id)
+            var products = await this.productsService.AllByProductTypeId(id)
                 .Select(prod => prod.To<ProductViewModel>())
-                .ToList();
+                .ToListAsync();
 
             return this.View(products);
         }
 
         [Route(ServicesGlobalConstants.HttpProductsDetailsId)]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             if (!this.User.Identity.IsAuthenticated)
             {
                 return this.View();
             }
 
-            var serviceModel = this.productsService.Details(id);
+            var serviceModel = await this.productsService.Details(id);
             var viewModel = AutoMapper.Mapper.Map<ProductsDetailsViewModel>(serviceModel);
-            var ingNames = this.productsService.GetAllIngredientsName(serviceModel);
+            var ingNames = await this.productsService.GetAllIngredientsName(serviceModel);
 
             this.ViewData[ServicesGlobalConstants.IngredientsNameViewData] = ingNames;
 
@@ -57,30 +59,30 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search(string searchString)
+        public async Task<IActionResult> Search(string searchString)
         {
-            GetAllProductTypes();
+            await GetAllProductTypes();
 
-            var searchedProducts = this.productsService.Search(searchString)
+            var searchedProducts = await this.productsService.Search(searchString)
                 .Select(product => product.To<ProductViewModel>())
-                .ToList();
+                .ToListAsync();
 
             return this.View(ServicesGlobalConstants.ViewProductsAll, searchedProducts);
         }
 
         [Authorize]
-        public IActionResult Order(ProductOrderInputModel inputModel, string id)
+        public async Task<IActionResult> Order(ProductOrderInputModel inputModel, string id) // add quantity in details view
         {
             OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
 
-            orderServiceModel.IssuerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            orderServiceModel.IssuerId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             orderServiceModel.ProductId = id;
-            this.ordersService.Create(orderServiceModel);
+            await this.ordersService.Create(orderServiceModel);
 
             return this.RedirectToAction("Cart", "Orders");
         }
 
-        private void GetAllProductTypes()
+        private Task GetAllProductTypes()
         {
             var allProductTypes = this.productsService.GetAllTypes();
 
@@ -90,6 +92,8 @@ namespace JuicyBurger.Web.Controllers
                 Id = productType.Id,
                 Name = productType.Name
             });
+
+            return Task.CompletedTask;
         }
     }
 }

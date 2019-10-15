@@ -1,11 +1,12 @@
 ﻿using JuicyBurger.Services.Models.Receipts;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Services.Receipts
 {
     public interface IReceiptService
     {
-        string Create(string recipientId);
+        Task<string> Create(string recipientId);
 
         IQueryable<ReceiptServiceModel> GetAll();
 

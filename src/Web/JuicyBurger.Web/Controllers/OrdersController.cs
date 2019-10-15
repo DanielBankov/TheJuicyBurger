@@ -5,9 +5,11 @@ using JuicyBurger.Services.Receipts;
 using JuicyBurger.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -24,24 +26,24 @@ namespace JuicyBurger.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Cart()
+        public async Task<IActionResult> Cart()
         {
-            List<OrderCartViewModel> orders = this.ordersService.GetAll()
+            List<OrderCartViewModel> orders = await this.ordersService.GetAll()
                 .Where(order => order.OrderStatus.Name == ServicesGlobalConstants.OrderStatusActive
                              && order.IssuerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 .To<OrderCartViewModel>()
-                .ToList();
+                .ToListAsync();
 
             return this.View(orders);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Complete()
+        public async Task<IActionResult> Complete()
         {
-            string recipientId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string recipientId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            string receiptId = this.receiptService.Create(recipientId);
+            string receiptId = await this.receiptService.Create(recipientId);
 
             return this.Redirect(ServicesGlobalConstants.RedirectReceiptsDetails + receiptId);
         }

@@ -5,6 +5,7 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @if (this.User.Identity.IsAuthenticated)
 {
     <div class="container shadow rounded p-5">
@@ -46,8 +47,8 @@
                                 <label for="quantity" class="col-form-label font-weight-bold">Add Comment</label>
                                 <div class="input-group">
                                     <textarea class="form-control" id="comment" name="comment" aria-label="With textarea"></textarea>
+                                    <input type="hidden" value="@Model.Id" name="id" />
                                 </div>
-                                <input type="hidden" value="@Model.Id" name="id" />
                             </div>
                         </form>
                     </div>

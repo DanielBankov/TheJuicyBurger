@@ -1,5 +1,6 @@
 ﻿using JuicyBurger.Services.Models.Products;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Service.Products
 {
@@ -9,17 +10,18 @@ namespace JuicyBurger.Service.Products
 
         IQueryable<ProductServiceModel> Search(string searchString);
 
-        ProductsDetailsServiceModel Details(string id);
-        bool Delete(string id);
+        Task<ProductsDetailsServiceModel> Details(string id);
 
-        bool Create(ProductServiceModel inputModel);
+        Task<bool> Delete(string id);
 
-        bool CreateType(ProductTypeServiceModel inputModel);
+        Task<bool> Create(ProductServiceModel inputModel);
+
+        Task<bool> CreateType(ProductTypeServiceModel inputModel);
 
         IQueryable<ProductTypeServiceModel> GetAllTypes();
 
         IQueryable<ProductsAllServiceModel> GetAll();
 
-        string GetAllIngredientsName(ProductsDetailsServiceModel serviceModel);
+        Task<string> GetAllIngredientsName(ProductsDetailsServiceModel serviceModel);
     }
 }

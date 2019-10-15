@@ -1,16 +1,17 @@
 ﻿using JuicyBurger.Services.Models.Restaurants;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Services.Restaurants
 {
     public interface IRestaurantsService 
     {
-        bool CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId);
+        Task<bool> CreatePartnerRequest(RestaurantsServiceModel serviceModel, string contractorId);
 
-        bool CreateContract(RestaurantContractServiceModel serviceModel);
+        Task<bool> CreateContract(RestaurantContractServiceModel serviceModel);
 
-        bool Delete(string id);
+        Task<bool> Delete(string id);
 
-        IQueryable<RestaurantsServiceModel> AllNotDeletedRequests();
+        Task<IQueryable<RestaurantsServiceModel>> AllNotDeletedRequests();
     }
 }

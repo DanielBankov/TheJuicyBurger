@@ -3,8 +3,10 @@ using JuicyBurger.Data.Models;
 using JuicyBurger.Services.GlobalConstants;
 using JuicyBurger.Services.Mapping;
 using JuicyBurger.Services.Models.Orders;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Services.Orders
 {
@@ -21,28 +23,28 @@ namespace JuicyBurger.Services.Orders
             this.context = context;
         }
 
-        public bool CompleteOrder(string orderId)
+        public async Task<bool> CompleteOrder(string orderId)
         {
-            var orderDb = this.context.Orders.SingleOrDefault(order => order.Id == orderId);
+            var orderDb = await this.context.Orders.SingleOrDefaultAsync(order => order.Id == orderId);
 
             if (orderDb == null)
             {
                 throw new InvalidOperationException(ServicesGlobalConstants.NoActiveOrdersExceptionMessage);
             }
 
-            orderDb.OrderStatus = this.context.OrderStatuses
-                .SingleOrDefault(orderStatus => orderStatus.Name == ServicesGlobalConstants.OrderStatusFinish);
+            orderDb.OrderStatus = await this.context.OrderStatuses
+                .SingleOrDefaultAsync(orderStatus => orderStatus.Name == ServicesGlobalConstants.OrderStatusFinish);
 
-            this.context.Orders.Update(orderDb);
-            var result = this.context.SaveChanges();
+            await Task.Run(() => this.context.Orders.Update(orderDb));
+            var result = await this.context.SaveChangesAsync();
 
             return result > num;
         }
 
-        public bool Create(OrderServiceModel orderService)
+        public async Task<bool> Create(OrderServiceModel orderService)
         {
             //IsProductAlreadyOrderedResult to increase quantity
-            var IsProductAlreadyOrderedResult = IsProductAlreadyOrdered(orderService);
+            var IsProductAlreadyOrderedResult = await IsProductAlreadyOrdered(orderService);
 
             if (IsProductAlreadyOrderedResult)
             {
@@ -55,11 +57,11 @@ namespace JuicyBurger.Services.Orders
             order.Quantity = orderQuantity;
             order.IssuedOn = DateTime.UtcNow;
 
-            order.OrderStatus = this.context.OrderStatuses
-                .SingleOrDefault(os => os.Name == ServicesGlobalConstants.OrderStatusActive);
+            order.OrderStatus = await this.context.OrderStatuses
+                .SingleOrDefaultAsync(os => os.Name == ServicesGlobalConstants.OrderStatusActive);
 
-            this.context.Orders.Add(order);
-            var result = this.context.SaveChanges();
+            await this.context.Orders.AddAsync(order);
+            var result = await this.context.SaveChangesAsync();
 
             return result > num;
         }
@@ -69,19 +71,19 @@ namespace JuicyBurger.Services.Orders
             return this.context.Orders.To<OrderServiceModel>();
         }
 
-        public void SetOrdersToReceipt(Receipt receipt)
+        public async Task SetOrdersToReceipt(Receipt receipt)
         {
-            var orders = this.context.Orders
+            var orders = await this.context.Orders
                 .Where(order => order.IssuerId == receipt.RecipientId &&
                                 order.OrderStatus.Name == ServicesGlobalConstants.OrderStatusActive)
-                .ToList();
+                .ToListAsync();
 
             receipt.Orders = orders;
         }
 
-        private bool IsProductAlreadyOrdered(OrderServiceModel orderService)
+        private async Task<bool> IsProductAlreadyOrdered(OrderServiceModel orderService)
         {
-            var allOrders = GetAll().ToList();
+            var allOrders = await GetAll().ToListAsync();
             var ordaredOrder = new OrderServiceModel();
             var result = num;
 
@@ -91,10 +93,12 @@ namespace JuicyBurger.Services.Orders
                 {
                     ordaredOrder = currOrder;
 
-                    var orderAlreadyOrdered = this.context.Orders.SingleOrDefault(or => or.Id == ordaredOrder.Id);
+                    var orderAlreadyOrdered = await this.context.Orders
+                        .SingleOrDefaultAsync(or => or.Id == ordaredOrder.Id);
                     orderAlreadyOrdered.Quantity++;
-                    this.context.Orders.Update(orderAlreadyOrdered);
-                    result = this.context.SaveChanges();
+
+                    await Task.Run(() => this.context.Orders.Update(orderAlreadyOrdered));
+                    result = await this.context.SaveChangesAsync();
 
                     return result > num;
                 }

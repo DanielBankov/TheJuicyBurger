@@ -3,6 +3,7 @@ using JuicyBurger.Services.Ingredients;
 using JuicyBurger.Services.Models.Ingredients;
 using JuicyBurger.Web.InputModels.Ingredients;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Areas.Administration.Controllers
 {
@@ -16,13 +17,13 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Create(IngredientsCreateInputModel inputModel)
+        public async Task<IActionResult> Create(IngredientsCreateInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -30,7 +31,7 @@ namespace JuicyBurger.Web.Areas.Administration.Controllers
             }
 
             var ingredient = AutoMapper.Mapper.Map<IngredientServiceModel>(inputModel);
-            this.ingredientsService.Create(ingredient);
+            await this.ingredientsService.Create(ingredient);
 
             return this.Redirect(ServicesGlobalConstants.HomeIndex); // redirect to ingredients all
         }

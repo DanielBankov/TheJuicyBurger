@@ -5,6 +5,7 @@ using JuicyBurger.Web.InputModels.Restaurants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace JuicyBurger.Web.Controllers
 {
@@ -17,13 +18,13 @@ namespace JuicyBurger.Web.Controllers
             this.restaurantServices = restaurantServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return this.View();
         }
 
         [HttpGet]
-        public IActionResult CreateRequest()
+        public async Task<IActionResult> CreateRequest()
         {
             return this.View();
         }
@@ -31,12 +32,12 @@ namespace JuicyBurger.Web.Controllers
         //Create partner request
         [Authorize]
         [HttpPost]
-        public IActionResult CreateRequest(RestaurantsCreateInputModel inputModel)
+        public async Task<IActionResult> CreateRequest(RestaurantsCreateInputModel inputModel)
         {
-            var contractorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var contractorId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var restaurant = AutoMapper.Mapper.Map<RestaurantsServiceModel>(inputModel);
-            this.restaurantServices.CreatePartnerRequest(restaurant, contractorId);
+            await this.restaurantServices.CreatePartnerRequest(restaurant, contractorId);
 
             return this.Redirect(ServicesGlobalConstants.HomeIndex);
         }
