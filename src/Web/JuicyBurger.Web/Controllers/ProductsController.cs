@@ -71,8 +71,10 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Order(ProductOrderInputModel inputModel, string id) // add quantity in details view
+        public async Task<IActionResult> Order( string id) 
+        //TODO: add quantity in details view
         {
+            var inputModel = new  OrderServiceModel () ;
             OrderServiceModel orderServiceModel = inputModel.To<OrderServiceModel>();
 
             orderServiceModel.IssuerId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);

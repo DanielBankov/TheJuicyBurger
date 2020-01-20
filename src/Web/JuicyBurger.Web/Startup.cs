@@ -100,7 +100,7 @@ namespace JuicyBurger.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // AutoMapper configuration.
+            // AutoMapper configuration from Nikolay Kostov.
             AutoMapperConfig.RegisterMappings(
               typeof(Product).GetTypeInfo().Assembly,
               typeof(ProductsCreateInputModel).GetTypeInfo().Assembly,

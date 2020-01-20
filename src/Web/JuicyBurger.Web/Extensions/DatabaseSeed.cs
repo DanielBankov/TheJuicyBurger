@@ -13,9 +13,15 @@ namespace JuicyBurger.Web.Extensions
             if (!context.Roles.Any())
             {
                 context.Roles.Add(new IdentityRole
-                { Name = ServicesGlobalConstants.Admin, NormalizedName = ServicesGlobalConstants.AdminUpperCase });
+                {
+                    Name = ServicesGlobalConstants.Admin,
+                    NormalizedName = ServicesGlobalConstants.AdminUpperCase
+                });
                 context.Roles.Add(new IdentityRole
-                { Name = ServicesGlobalConstants.User, NormalizedName = ServicesGlobalConstants.UserUpperCase });
+                {
+                    Name = ServicesGlobalConstants.User,
+                    NormalizedName = ServicesGlobalConstants.UserUpperCase
+                });
                 //context.Roles.Add(new IdentityRole { Name = "Dasher", NormalizedName = "DASHER" });
 
                 context.SaveChanges();

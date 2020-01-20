@@ -92,8 +92,8 @@
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                             <a class="dropdown-item" href="/Administration/Products/Type/Create">Create Product Type</a>
                                             <a class="dropdown-item" href="/Administration/Products/Create">Create Product</a>
-                                            <a class="dropdown-item" href="/Administration/Restaurants/Requests">Partner Requests</a>
                                             <a class="dropdown-item" href="/Administration/Ingredients/Create">Create Ingredient</a>
+                                            <a class="dropdown-item" href="/Administration/Restaurants/Requests">Partner Requests</a>
                                             <a class="dropdown-item" href="/Administration/Products/All">All Products</a>
                                             <a class="dropdown-item" href="/Products/DrinksMenu">Restorants</a>
                                         </div>
@@ -109,9 +109,10 @@
 
         <!-- RenderBody -->
         <div>
-            <partial name="_CookieConsentPartial" />
             <main role="main" class="mt-5">
+                <partial name="_CookieConsentPartial" />
                 @RenderBody()
+
             </main>
         </div>
 
