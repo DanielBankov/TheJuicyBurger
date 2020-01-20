@@ -47,7 +47,7 @@
                     </div>
                 </div>
             }
-            <form action="/Orders/Complete" method="post">
+            <form action="/Orders/Complete" >
                 <div class="row text-right mt-5">
                     <div class="col main-content-icons-text mt-1">
                         <h3>Total Price: &#36;@Model.Sum(total => total.ProductPrice * total.Quantity).ToString(ServicesGlobalConstants.PriceRouting)</h3>

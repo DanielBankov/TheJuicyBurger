@@ -38,7 +38,6 @@ namespace JuicyBurger.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost]
         public async Task<IActionResult> Complete()
         {
             string recipientId = await Task.Run(() => this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
