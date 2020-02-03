@@ -4,16 +4,14 @@
 
 ## Description
 
-This is a basic idea for Web Burger shop project which 
-offers burgers by your design or choise from menu. Guest Users can register
+This is a basic idea for Burger shop project which 
+offers burgers by choice from the menu. Guest Users can register
 and login to their accounts.
 Regular Users can view and order products with quantity.
-Regular Users can add/remove ingredients.
-Regular User can become a dasher.
 Regular Users can creating a contract with a restaurant partner.
-Regular User can submit reviews for burgers or a dasher.
+Regular Users can see their receipt history.
 The project also supports Administration. 
-Administrators have all rights a Regular User has.
+Administrators have all rights that regular User has.
 Administrators can also Promote and Demote Users.
 Administrators can also add, edit or delete products to / from the shop. 
 Administrators can also add, edit and delete restaurant partner.
